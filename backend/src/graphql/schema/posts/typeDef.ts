@@ -6,6 +6,7 @@ export const typeDef = `
     createdAt: Date
     updatedAt: Date
     author: User
+    comments: [Comment]
   }
   extend type Query {
     getPosts: [Post]

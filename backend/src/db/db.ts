@@ -31,9 +31,17 @@ sequelize.sync({
 })
 .then((asdf) => {
   author2 = asdf;
-  return Post.create({title: 'post 1', body: 'somebody', authorId: author1.id});
+  Post.create({title: 'post 1', body: 'somebody1', authorId: author1.id});
+  Post.create({title: 'post 2', body: 'somebody2', authorId: author1.id});
+  Post.create({title: 'post 3', body: 'somebody3', authorId: author1.id});
+  Post.create({title: 'post 4', body: 'somebody4', authorId: author1.id});
+  Post.create({title: 'post 5', body: 'somebody5', authorId: author1.id});
+  Post.create({title: 'post 6', body: 'somebody6', authorId: author1.id});
+  Post.create({title: 'post 7', body: 'somebody7', authorId: author1.id});
+  Post.create({title: 'post 8', body: 'somebody8', authorId: author1.id});
+  return Post.create({title: 'post 9', body: 'somebody9', authorId: author1.id});
 })
 .then((asdf) => {
   post1 = asdf;
-  return Comment.create({body: 'asdf', post: post1, authorId: author2.id})
+  return Comment.create({body: 'asdf', postId: post1.id, authorId: author2.id})
 });
