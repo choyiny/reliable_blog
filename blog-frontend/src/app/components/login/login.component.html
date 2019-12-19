@@ -1,10 +1,11 @@
-<form class="login-form">
+<form class="login-form" [formGroup]="loginForm" (submit)="submit()">
   <mat-form-field class="w-100">
-    <input type="email" matInput placeholder="Email Address">
+    <input type="email" matInput placeholder="Email Address" formControlName="email" autocomplete="username">
   </mat-form-field>
 
   <mat-form-field class="w-100">
-    <input type="password" matInput placeholder="Password">
+    <input type="password" matInput placeholder="Password" formControlName="password" autocomplete="current-password">
   </mat-form-field>
   <button type="submit" mat-flat-button color="primary">Login</button>
+  <p *ngIf="invalid">Invalid login.</p>
 </form>
