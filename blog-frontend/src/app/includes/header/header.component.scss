@@ -1,0 +1,9 @@
+ol.nav {
+  padding-left: 0;
+  ul {
+    display: inline-block;
+    &:first-child {
+      padding-left: 0;
+    }
+  }
+}

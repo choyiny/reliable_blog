@@ -1,0 +1,9 @@
+<div class="header">
+  <h1>Reliable Blog</h1>
+  <ol class="nav">
+    <ul><a routerLink="">Home</a></ul>
+    <ul *ngIf="!userService.loggedIn"><a routerLink="login">Login</a></ul>
+    <ul *ngIf="userService.loggedIn"><a routerLink="new">New Post</a></ul>
+    <ul *ngIf="userService.loggedIn"><a routerLink="" (click)="userService.logout()">Logout</a></ul>
+  </ol>
+</div>
