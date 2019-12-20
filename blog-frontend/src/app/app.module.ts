@@ -14,6 +14,7 @@ import {MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule} from
 import {RouterModule} from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { NewComponent } from './components/new/new.component';
+import { AboutComponent } from './components/about/about.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { NewComponent } from './components/new/new.component';
     BlogComponent,
     PreviewComponent,
     LoginComponent,
-    NewComponent
+    NewComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,

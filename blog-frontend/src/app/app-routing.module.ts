@@ -4,6 +4,7 @@ import {BlogsComponent} from '@root/components/blogs/blogs.component';
 import {BlogComponent} from '@root/components/blog/blog.component';
 import {LoginComponent} from '@root/components/login/login.component';
 import {NewComponent} from '@root/components/new/new.component';
+import {AboutComponent} from '@root/components/about/about.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     component: NewComponent,
     path: 'new'
+  },
+  {
+    component: AboutComponent,
+    path: 'about'
   },
   {
     path: '**',
