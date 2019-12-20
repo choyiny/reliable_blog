@@ -1,9 +1,47 @@
-ol.nav {
-  padding-left: 0;
-  ul {
-    display: inline-block;
-    &:first-child {
-      padding-left: 0;
+.header {
+  text-align: center;
+  font-family: 'Merriweather', serif;
+  margin: 2.5em 0;
+}
+
+.title {
+  margin-bottom: 0;
+  a {
+    text-decoration: none;
+    color: black;
+  }
+}
+
+.subtitle {
+  margin-top: 0;
+  font-size: 1em;
+  color: grey;
+}
+
+.navbar {
+  border-top: 0.2em solid black;
+  border-bottom: 0.2em solid black;
+  text-align: center;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  padding: 0.5em 0;
+  margin-bottom: 1em;
+
+  .nav-item {
+    display: block;
+    width: 10em;
+
+    a {
+      color: black;
+      font-weight: 500;
+      text-decoration: none;
+      transition: ease .2s;
+
+      &:hover {
+        color: #3f3f3f;
+        transition: ease .2s;
+      }
     }
   }
 }

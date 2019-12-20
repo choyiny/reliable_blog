@@ -1,9 +1,10 @@
 <div class="header">
-  <h1>Reliable Blog</h1>
-  <ol class="nav">
-    <ul><a routerLink="">Home</a></ul>
-    <ul *ngIf="!userService.loggedIn"><a routerLink="login">Login</a></ul>
-    <ul *ngIf="userService.loggedIn"><a routerLink="new">New Post</a></ul>
-    <ul *ngIf="userService.loggedIn"><a routerLink="" (click)="userService.logout()">Logout</a></ul>
-  </ol>
+  <h1 class="title"><a routerLink="">Deploying Reliable Software</a></h1>
+  <h2 class="subtitle">From Google's Software Reliability Engineering Principles</h2>
+</div>
+
+<div class="navbar">
+  <div class="nav-item"><a routerLink="">Home</a></div>
+  <div *ngIf="!userService.loggedIn" class="nav-item"><a routerLink="about">About</a></div>
+  <div *ngIf="userService.loggedIn" class="nav-item"><a routerLink="" (click)="userService.logout()">Logout</a></div>
 </div>
