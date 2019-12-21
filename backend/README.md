@@ -1,24 +1,22 @@
-# README
+# Reliable Blog Backend
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Configuration
+###Environments
+####Development
+####Test
+####Production
+## Developing
 
-Things you may want to cover:
+## Testing
+Using RSpec, Factory Bot and Faker. Look at example tests under /spec/*. Note that Testing database must be truncated with each test.
 
-* Ruby version
 
-* System dependencies
+Prepare with factory linting
 
-* Configuration
+    $ rake factory_bot:lint
 
-* Database creation
+Then run tests
 
-* Database initialization
+    $ rspec
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Building and Deploying
