@@ -10,12 +10,14 @@ export class IdentityInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // if logged-in
-    if (!!this.currentUserService.loggedIn) {
+    if (!!this.currentUserService.getToken()) {
       request = request.clone({
         setHeaders: {
           Authorization: this.currentUserService.token,
         }
       });
+    } else {
+      this.currentUserService.setToken(null);
     }
 
     // pass on request
