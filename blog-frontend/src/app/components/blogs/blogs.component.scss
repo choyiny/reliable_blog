@@ -1,0 +1,8 @@
+.blogs-container {
+  display: flex;
+  flex-wrap: wrap;
+
+  .post-preview {
+    flex: 0 50%;
+  }
+}

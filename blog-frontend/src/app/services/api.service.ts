@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
 import {PostInterface} from '@root/interfaces/post-interface';
 import {ApiEndpointService} from '@root/services/api-endpoint.service';
 import {HttpClient} from '@angular/common/http';
@@ -21,6 +21,12 @@ export class ApiService {
     );
   }
 
+  editPost(id: number, title: string, content: string): Observable<PostInterface> {
+    return this.http.put(this.endpointService.urlFor('edit_post', {postId: id}), {id, title, content}).pipe(
+      map((obj) => obj as PostInterface)
+    );
+  }
+
   getPosts(): Observable<PostInterface[]> {
     return this.http.get(this.endpointService.urlFor('get_posts')).pipe(
       map((obj: PostInterface[]) => obj)
@@ -28,7 +34,7 @@ export class ApiService {
   }
 
   getPost(postId: string): Observable<PostInterface> {
-    return this.http.get(this.endpointService.urlFor('get_post', {postId: postId})).pipe(
+    return this.http.get(this.endpointService.urlFor('get_post', {postId})).pipe(
       map((obj) => obj as PostInterface)
     );
   }

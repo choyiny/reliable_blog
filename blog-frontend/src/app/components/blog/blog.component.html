@@ -1,5 +1,11 @@
 <div *ngIf="post" class="post">
-  <h2>{{post.title}}</h2>
-  <quill-view [content]="post.content" format="text"></quill-view>
+  <div class="post-header">
+    <p class="date">{{post.updatedAt | date: 'fullDate'}}</p>
+    <h1>{{post.title}}</h1>
+  </div>
+  <div class="content">
+    <quill-view [content]="post.content" format="text"></quill-view>
+    <a class="edit-content" routerLink="edit">Edit</a>
+  </div>
 </div>
 

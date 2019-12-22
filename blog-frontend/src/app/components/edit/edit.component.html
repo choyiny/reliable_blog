@@ -1,5 +1,5 @@
-<form class="new-post-form" [formGroup]="newForm" (submit)="submit()">
-  <h2>Create New Post</h2>
+<form class="edit-post-form" [formGroup]="editForm" (submit)="submit()">
+  <h2>Edit Post: <span *ngIf="post">{{post.title}}</span></h2>
   <mat-form-field class="w-100">
     <input matInput placeholder="Title" formControlName="title">
   </mat-form-field>
