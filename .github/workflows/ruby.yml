@@ -3,7 +3,7 @@ name: Ruby
 on: 
   push:
     paths:
-      - backend
+      - backend/**
 
 jobs:
   build:

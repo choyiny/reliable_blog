@@ -4,7 +4,6 @@ FactoryBot.define do
     content { Faker::Lorem.paragraph }
     user
 
-
     trait :has_comments do
       after(:build) do |post|
         post.comments << FactoryBot.build_list(:comment, 3)
