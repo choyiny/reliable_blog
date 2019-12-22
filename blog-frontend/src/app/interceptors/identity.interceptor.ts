@@ -13,7 +13,7 @@ export class IdentityInterceptor implements HttpInterceptor {
     if (!!this.currentUserService.getToken()) {
       request = request.clone({
         setHeaders: {
-          Authorization: this.currentUserService.token,
+          Authorization: `Bearer ${this.currentUserService.token}`,
         }
       });
     } else {

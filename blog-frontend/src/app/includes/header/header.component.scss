@@ -24,7 +24,7 @@
   text-align: center;
   display: flex;
   flex-wrap: nowrap;
-  justify-content: center;
+  justify-content: space-around;
   padding: 0.5em 0;
   margin-bottom: 1em;
 
@@ -41,7 +41,9 @@
       &:hover {
         color: #3f3f3f;
         transition: ease .2s;
+
       }
+
     }
   }
 }

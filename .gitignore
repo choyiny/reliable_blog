@@ -29,3 +29,4 @@ backend/config/master.key
 node_modules
 
 backend_old
+.DS_Store
