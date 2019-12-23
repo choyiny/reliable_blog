@@ -27,10 +27,19 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/bootstrap/dist/css/bootstrap-grid.min.css",
+              "./node_modules/quill/dist/quill.core.css",
+              "./node_modules/quill/dist/quill.bubble.css",
+              "./node_modules/quill/dist/quill.snow.css",
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "./node_modules/highlight.js/scss/github.scss",
+              "./node_modules/katex/dist/katex.css",
               "src/styles.scss"
             ],
-            "scripts": [],
+            "scripts": [
+              "./node_modules/highlight.js/lib/highlight.js",
+              "./node_modules/katex/dist/katex.js"
+            ],
             "es5BrowserSupport": true
           },
           "configurations": {

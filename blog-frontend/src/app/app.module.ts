@@ -1,20 +1,26 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { HeaderComponent } from './includes/header/header.component';
-import {HttpClientModule} from '@angular/common/http';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {HeaderComponent} from './includes/header/header.component';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { BlogsComponent } from './components/blogs/blogs.component';
-import { BlogComponent } from './components/blog/blog.component';
-import { PreviewComponent } from './includes/preview/preview.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {BlogsComponent} from './components/blogs/blogs.component';
+import {BlogComponent} from './components/blog/blog.component';
+import {PreviewComponent} from './includes/preview/preview.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule} from '@angular/material';
 import {RouterModule} from '@angular/router';
-import { LoginComponent } from './components/login/login.component';
-import { NewComponent } from './components/new/new.component';
-import { AboutComponent } from './components/about/about.component';
+import {LoginComponent} from './components/login/login.component';
+import {NewComponent} from './components/new/new.component';
+import {AboutComponent} from './components/about/about.component';
+import {IdentityInterceptor} from '@root/interceptors/identity.interceptor';
+import {QuillModule} from 'ngx-quill';
+import { FooterComponent } from './includes/footer/footer.component';
+import { EditComponent } from './components/edit/edit.component';
+import { ExperimentsComponent } from './components/experiments/experiments.component';
+import { StatusComponent } from './components/status/status.component';
 
 
 @NgModule({
@@ -26,7 +32,11 @@ import { AboutComponent } from './components/about/about.component';
     PreviewComponent,
     LoginComponent,
     NewComponent,
-    AboutComponent
+    AboutComponent,
+    FooterComponent,
+    EditComponent,
+    ExperimentsComponent,
+    StatusComponent
   ],
   imports: [
     BrowserModule,
@@ -39,9 +49,36 @@ import { AboutComponent } from './components/about/about.component';
     MatCardModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    QuillModule.forRoot({
+      modules: {
+        syntax: true,
+        toolbar: [
+          ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+          ['blockquote', 'code-block'],
+          [{ header: [1, 2, 3, 4, 5, 6, false] }],
+          [{ font: [] }],
+
+          [{ list: 'ordered'}, { list: 'bullet' }],
+          [{ script: 'sub'}, { script: 'super' }],      // superscript/subscript
+          [{ color: [] }, { background: [] }],
+          [{ align: [] }],
+
+          ['clean'],
+
+          ['link', 'image', 'video', 'formula']
+        ]
+      }
+    })
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: IdentityInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

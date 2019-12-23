@@ -1,46 +1,70 @@
+@import "../../../responsive";
+
 .header {
-  text-align: center;
-  font-family: 'Merriweather', serif;
-  margin: 2.5em 0;
-}
+  width: 100%;
+  padding: 2em 6em;
+  align-items: center;
 
-.title {
-  margin-bottom: 0;
-  a {
-    text-decoration: none;
-    color: black;
+  @include phone {
+    padding: 0.5em 2em;
+    margin: 0;
   }
-}
 
-.subtitle {
-  margin-top: 0;
-  font-size: 1em;
-  color: grey;
-}
+  .logo {
+    @include phone {
+      text-align: center;
+    }
+    .title {
+      margin: 0;
+      a {
+        text-decoration: none;
+      }
+    }
 
-.navbar {
-  border-top: 0.2em solid black;
-  border-bottom: 0.2em solid black;
-  text-align: center;
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: center;
-  padding: 0.5em 0;
-  margin-bottom: 1em;
+    .subtitle {
+      margin-top: 0;
+      font-size: 1em;
+      color: #707180;
+      font-weight: 400;
+    }
+  }
 
-  .nav-item {
-    display: block;
-    width: 10em;
+  .navbar {
+    text-align: center;
+    padding: 0.5em 0;
+    width: 40%;
 
-    a {
-      color: black;
-      font-weight: 500;
-      text-decoration: none;
-      transition: ease .2s;
+    .nav-item {
+      display: block;
+      font-size: 15px;
 
-      &:hover {
-        color: #3f3f3f;
+      a {
+        font-family: 'Muli', sans-serif;
+        font-weight: 800;
+        text-decoration: none;
         transition: ease .2s;
+
+        &:hover {
+          color: #3f3f3f;
+          transition: ease .2s;
+
+          &:after {
+            width: 100%;
+          }
+
+        }
+
+        &:after {
+          content: '';
+          display: block;
+          position: relative;
+          width: 0;
+          bottom: 0;
+          left: 0;
+          border-bottom: 1px solid #222222;
+          transition: .5s ease;
+        }
+
       }
     }
   }

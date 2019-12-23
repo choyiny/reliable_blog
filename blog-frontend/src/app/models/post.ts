@@ -13,8 +13,8 @@ export class Post implements PostInterface {
   constructor(json: PostInterface) {
     this.id = json.id;
     this.title = json.title;
-    this.createdAt = json.createdAt;
-    this.updatedAt = json.updatedAt;
+    this.createdAt = json.createdAt || new Date();
+    this.updatedAt = json.updatedAt || new Date();
     this.content = json.content;
     this.author = json.author;
   }

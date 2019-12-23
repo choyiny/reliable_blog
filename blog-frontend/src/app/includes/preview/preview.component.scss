@@ -7,5 +7,10 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 80%;
+  max-height: 80px;
+}
+
+.preview-card {
+  margin-bottom: 1em;
+  width: 92%;
 }
