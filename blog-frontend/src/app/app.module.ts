@@ -19,6 +19,8 @@ import {IdentityInterceptor} from '@root/interceptors/identity.interceptor';
 import {QuillModule} from 'ngx-quill';
 import { FooterComponent } from './includes/footer/footer.component';
 import { EditComponent } from './components/edit/edit.component';
+import { ExperimentsComponent } from './components/experiments/experiments.component';
+import { StatusComponent } from './components/status/status.component';
 
 
 @NgModule({
@@ -32,7 +34,9 @@ import { EditComponent } from './components/edit/edit.component';
     NewComponent,
     AboutComponent,
     FooterComponent,
-    EditComponent
+    EditComponent,
+    ExperimentsComponent,
+    StatusComponent
   ],
   imports: [
     BrowserModule,

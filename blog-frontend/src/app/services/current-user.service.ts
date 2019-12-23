@@ -8,19 +8,19 @@ import {map, tap} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class CurrentUserService {
-  public token: string;
+  private _token: string;
 
   constructor(
     private endpointService: ApiEndpointService,
     private http: HttpClient
   ) {
-    this.token = this.getToken();
+    this._token = this.token;
   }
 
   login(email: string, password: string): Observable<boolean> {
     return this.http.post(this.endpointService.urlFor('auth'), {email, password}).pipe(
       tap((result: {auth_token: string}) => {
-        this.setToken(result.auth_token);
+        this.token = result.auth_token;
       }),
       map((result: {auth_token?: string, error?: string}) => {
         return !!result.auth_token;
@@ -28,12 +28,12 @@ export class CurrentUserService {
     );
   }
 
-  public setToken(token: string) {
+  public set token(token: string) {
     this.token = token;
     localStorage.setItem('t', token);
   }
 
-  public getToken(): string {
+  public get token(): string {
     return localStorage.getItem('t');
   }
 

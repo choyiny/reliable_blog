@@ -8,7 +8,16 @@ export class ApiEndpointService {
 
   private defaultUrl = environment.apiRootUrl;
 
-  public baseUrl;
+  private _baseUrl: string;
+
+  public get baseUrl() {
+    return this._baseUrl;
+  }
+
+  public set baseUrl(url: string) {
+    this._baseUrl = url;
+    localStorage.setItem('baseUrl', url);
+  }
 
   public endpoints: {[endpoint: string]: string} = {
     auth: '/authenticate',

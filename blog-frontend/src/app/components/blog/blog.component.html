@@ -1,9 +1,9 @@
-<div *ngIf="post" class="post">
-  <div class="post-header">
+<div *ngIf="post" class="post row no-gutters">
+  <div class="post-header col-12">
     <p class="date">{{post.updatedAt | date: 'fullDate'}}</p>
     <h1>{{post.title}}</h1>
   </div>
-  <div class="content">
+  <div class="content col-12">
     <quill-view [content]="post.content" format="text"></quill-view>
     <a class="edit-content" routerLink="edit">Edit</a>
   </div>

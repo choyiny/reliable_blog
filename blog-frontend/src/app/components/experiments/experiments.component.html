@@ -1,0 +1,8 @@
+<h2>Experiments</h2>
+<h3>Change the backend URL</h3>
+<form class="backend-form" [formGroup]="backendForm" (submit)="changeBackend()">
+  <mat-form-field>
+    <input type="text" matInput placeholder="Backend URL" formControlName="backendUrl">
+  </mat-form-field>
+  <button type="submit" mat-flat-button color="primary">Change</button>
+</form>

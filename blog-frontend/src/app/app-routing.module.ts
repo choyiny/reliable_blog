@@ -6,6 +6,8 @@ import {LoginComponent} from '@root/components/login/login.component';
 import {NewComponent} from '@root/components/new/new.component';
 import {AboutComponent} from '@root/components/about/about.component';
 import {EditComponent} from '@root/components/edit/edit.component';
+import {ExperimentsComponent} from '@root/components/experiments/experiments.component';
+import {StatusComponent} from '@root/components/status/status.component';
 
 const routes: Routes = [
   {
@@ -31,6 +33,14 @@ const routes: Routes = [
   {
     component: AboutComponent,
     path: 'about'
+  },
+  {
+    component: ExperimentsComponent,
+    path: 'experiments'
+  },
+  {
+    component: StatusComponent,
+    path: 'status'
   },
   {
     path: '**',
