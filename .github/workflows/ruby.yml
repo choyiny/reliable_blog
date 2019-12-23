@@ -19,7 +19,7 @@ jobs:
     - name: Build and test with Rake
       working-directory: ./backend
       run: |
-        sudo apt-get install -y sqlite3 --no-install-recommends
+        sudo apt-get install -y libsqlite3-dev --no-install-recommends
         gem install bundler
         bundle install --jobs 4 --retry 3
         bundle exec rake
