@@ -1,5 +1,5 @@
 <h3>What's New?</h3>
-<p *ngIf="posts.length == 0">There is nothing new.</p>
+<p *ngIf="posts?.length == 0">There is nothing new.</p>
 <div class="blogs-container row">
-  <app-blog-preview class="post-preview col-12 col-lg-6" *ngFor="let post of posts" [post]="post"></app-blog-preview>
+  <app-blog-preview class="post-preview col-12 col-lg-4" *ngFor="let post of posts" [post]="post"></app-blog-preview>
 </div>

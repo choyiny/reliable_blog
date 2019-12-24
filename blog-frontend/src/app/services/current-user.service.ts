@@ -29,7 +29,7 @@ export class CurrentUserService {
   }
 
   public set token(token: string) {
-    this.token = token;
+    this._token = token;
     localStorage.setItem('t', token);
   }
 

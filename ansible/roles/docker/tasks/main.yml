@@ -1,0 +1,55 @@
+---
+- name: Install dependencies
+  yum:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - yum-utils
+    - device-mapper-persistent-data
+    - lvm2
+
+- name: Add Docker repo
+  command: "yum-config-manager --add-repo {{ docker['repo_url'] }}"
+  become: yes
+
+- name: Install Docker
+  yum:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
+
+- name: Start Docker service
+  service:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Download Docker Compose
+  get_url:
+    url: "{{ docker['compose_url'] }}"
+    dest: "/usr/local/bin/docker-compose"
+    mode: "+x"
+
+- name: Create Compose symlink to /usr/bin
+  file:
+    src: "/usr/local/bin/docker-compose"
+    dest: "/usr/bin/docker-compose"
+    owner: root
+    group: root
+    state: link
+
+- name: Create Docker folders
+  file:
+    path: "/opt/reliable/docker/{{ item }}"
+    owner: reliable
+    group: docker
+    state: directory
+    mode: 0755
+  loop:
+    - backups
+    - config
+    - log
+© 2019 GitHub, Inc.

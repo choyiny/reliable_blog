@@ -6,7 +6,7 @@ import {environment} from '../../environments/environment';
 })
 export class ApiEndpointService {
 
-  private defaultUrl = environment.apiRootUrl;
+  public readonly defaultUrl = environment.apiRootUrl;
 
   private _baseUrl: string;
 
