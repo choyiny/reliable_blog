@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
         } else {
           this.invalid = true;
         }
-      });
+      }, () => { this.invalid = true; });
     }
   }
 

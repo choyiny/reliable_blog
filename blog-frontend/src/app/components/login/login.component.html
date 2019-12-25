@@ -8,7 +8,7 @@
     <mat-form-field class="w-100">
       <input type="password" matInput placeholder="Password" formControlName="password" autocomplete="current-password">
     </mat-form-field>
-    <button type="submit" mat-flat-button color="primary">Login</button>
+    <button type="submit" mat-flat-button color="primary" [disabled]="!loginForm.valid">Login</button>
     <p *ngIf="invalid">Invalid login.</p>
   </form>
 

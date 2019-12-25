@@ -30,7 +30,11 @@ export class CurrentUserService {
 
   public set token(token: string) {
     this._token = token;
-    localStorage.setItem('t', token);
+    if (!!token) {
+      localStorage.setItem('t', token);
+    } else {
+      localStorage.removeItem('t');
+    }
   }
 
   public get token(): string {
@@ -38,6 +42,6 @@ export class CurrentUserService {
   }
 
   logout() {
-    this.token = '';
+    this.token = null;
   }
 }
