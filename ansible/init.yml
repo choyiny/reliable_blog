@@ -12,23 +12,25 @@
 ---
 - hosts: "{{ target }}"
   tasks:
+    - name: Run common
+      include_role:
+        name: common
     - name: "Load users data"
       include_vars:
         file: users.json
         name: users
-
     - name: Ensure ansible group exists
       group:
         name: ansible
         state: present
-
     - name: Create users
       user:
         name: "{{ item.username }}"
         groups: "{{ item.groups }}"
         append: yes
+        # this is just 'centos'
+        password: "$6$mysecretsalt$ZGEKmW.xOJYyospmz5LpMc8qK6PtkAHGt15lLn1d9UTzK9ygIEOITwXo9BFt769wV/VtwpbIZ4HWG.1CFQE8K1"
       loop: "{{ users.users }}"
-
     - name: Add SSH keys for users
       authorized_key:
         user: "{{ item.username }}"
@@ -47,7 +49,6 @@
         path: /etc/ssh/sshd_config
         regexp: '#?PasswordAuthentication (yes|no)'
         replace: 'PasswordAuthentication no'
-
     - name: Restart SSH service
       service:
         name: sshd

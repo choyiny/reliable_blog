@@ -1,0 +1,1 @@
+/Users/jordan.liu/work/reliable_blog/config/db/init_docker_postgres.sql

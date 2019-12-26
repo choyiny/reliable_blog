@@ -12,9 +12,12 @@
 
 ActiveRecord::Schema.define(version: 2019_12_21_052840) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "comments", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "post_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "post_id", null: false
     t.string "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -25,7 +28,7 @@ ActiveRecord::Schema.define(version: 2019_12_21_052840) do
   create_table "posts", force: :cascade do |t|
     t.string "title"
     t.string "content"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "status"
@@ -34,7 +37,7 @@ ActiveRecord::Schema.define(version: 2019_12_21_052840) do
   end
 
   create_table "profiles", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.string "first_name"
     t.string "last_name"
     t.string "middle_name"

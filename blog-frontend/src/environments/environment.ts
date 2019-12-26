@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiRootUrl: 'http://localhost:3000'
+  apiRootUrl: 'http://backend:3000'
 };
 
 /*

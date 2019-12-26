@@ -44,7 +44,7 @@
 - name: Create Docker folders
   file:
     path: "/opt/reliable/docker/{{ item }}"
-    owner: reliable
+    owner: root
     group: docker
     state: directory
     mode: 0755
@@ -52,4 +52,12 @@
     - backups
     - config
     - log
-© 2019 GitHub, Inc.
+- name: Install Docker module for Ansible
+  pip: 
+    name: docker-py
+- name: Deploy test container
+  docker_container:
+    image: hello-world
+    state: started
+    name: hello-world
+    output_logs: yes

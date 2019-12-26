@@ -1,0 +1,46 @@
+version: '3.5'
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: dev.Dockerfile
+    image: reliable-blog:backend-dev
+    volumes:
+      - ./backend:/app
+      - gems:/usr/local/bundle
+    ports:
+      - 3000:3000
+    networks:
+      - web
+    depends_on:
+      - db
+  frontend:
+    build:
+      context: ./blog-frontend
+      dockerfile: dev.Dockerfile
+    image: reliable-blog:frontend-dev
+    volumes:
+      - ./blog-frontend:/app
+      - '/app/node_modules'
+    ports:
+      - 4200:4200
+    networks:
+      - web
+  db:
+    image: postgres:12
+    volumes:
+      - /var/lib/postgresql/data
+      - ./config/db:/docker-entrypoint-initdb.d
+    ports: 
+      - 5432:5432
+    environment:
+      POSTGRES_DB: blog
+      POSTGRES_PASSWORD: blog
+      POSTGRES_USER: blog
+    networks:
+      - web
+networks:
+  web:
+    driver: bridge
+volumes:
+  gems:

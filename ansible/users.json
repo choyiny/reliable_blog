@@ -2,12 +2,12 @@
   "users": [
     {
       "username": "choyiny",
-      "groups": "ansible",
+      "groups": ["ansible", "docker", "wheel"],
       "ssh_key": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDR5BFX0/4iWVKPXgsVom27P4CHo0zFA2jGi063ORAd0jfEq1jVE3Q5BCakyD5Cy6uY6FzOzF8hMlXRIxl4SmwMqF3980KiL0DHm7NXPo7jyxxGa6ZfBffWuSLxSFRYPCAEpbBmMFSoM8xDk6nsyqyin4xNE2E7lnN2GnCb+/yRbbQjkZ6dB7/7CjcDSbYDQ98txEMKbk1rttqMcFcppJ6H6qKW7oSmB5nhBtSE1Ne/phAMmsnSQVuChqZ+nCtiGhcfEAOqQBLLqLyvocxWp/ByH7GJWHU+AzCpgrOZTzMYXzf9GfuLD16qwWdrqB1fzmCKlnwZvzgYA8JTPwHJChCh choyiny@choyin.local"
     },
     {
       "username": "jordan.liu",
-      "groups": "ansible",
+      "groups": ["ansible", "docker", "wheel"],
       "ssh_key": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDNpYwgCxFY9bj3TeN6VE3Y2/FI0BESrTuaQXlvXM61pzYLVaajUX+Ex+Dbwc7rUNRPWayDYrslmHxD8eDycLNFK3f35PT+zo3vLG0FP8cJzq6GDsbE0hRpYuXEvCXFun2siFKWMMiAUMXGAj2BAzNLYY88VMyilTMFFafQH/sGQi4oAzP5/ybpTFL2p4gXI9/hy3h9cvcmeqbLgT1SPT/0cUFOYboheOr0XYe9r7AOR70mZB7hlDyxFO1zk9fvdjnsElORCy++MyoblFV7W7strPsa7cLuQs59Pe762xu4gmJ4gPSnU80k2VS5PbHUVpZX4dm1lVsLRr7FYXUvgWC6oNiHMXA5pbBJayWnNxCIjfENRKeAYeS2gyBw40WZE7m7FJyWQeIvDigh310F/wfT2db07+/4P2MIwg1LrKjhTYFyem1hcHSc4iX4mIeqGDUyG3BtGujt2lajqTsuV8rJo3MOWdzOI1msXBH0hKyS+7/DnGPsceqtEavsoc0ZLnfKkbW/dXQMwaMO3m0e5xKz1iDUGgtJ3CMxq2xWr4fmbmBogqWk62fUWHP3gutHSX5PDPAcDJOSMs/MGUNdL/QEqTCLzzwECOdUJrDhG8AYxCxjp4G1Ockn2Lfuff+UDlgCc3nDYfYQPMzmPHGVAC4eb/YLt9nO8bdqFAMfUPdB2w== liu.jordan.com@gmail.com"
     }
   ]
