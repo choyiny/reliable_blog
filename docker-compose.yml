@@ -1,5 +1,24 @@
-version: '3.5'
+version: '3.7'
 services:
+  nginx-proxy:
+    container_name: nginx-proxy
+    image: jwilder/nginx-proxy:alpine
+    restart: always
+    ports:
+      - 443:443
+      - 80:80
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./config/nginx/vhost:/etc/nginx/vhost.d
+      - ./config/nginx/html:/usr/share/nginx/html
+      - ./config/nginx/certs:/etc/nginx/certs:ro
+      - ./config/nginx/certs:/etc/nginx/dhparam
+    labels:
+      - "com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy"
+    environment:
+      - DEFAULT_HOST=localhost
+    networks:
+      - web
   backend:
     build:
       context: ./backend
@@ -8,12 +27,12 @@ services:
     volumes:
       - ./backend:/app
       - gems:/usr/local/bundle
-    ports:
-      - 3000:3000
     networks:
       - web
     depends_on:
       - db
+    environment:
+      - VIRTUAL_HOST=backend.localhost
   frontend:
     build:
       context: ./blog-frontend
@@ -22,23 +41,21 @@ services:
     volumes:
       - ./blog-frontend:/app
       - '/app/node_modules'
-    ports:
-      - 4200:4200
     networks:
       - web
+    environment:
+      - VIRTUAL_HOST=localhost
   db:
     image: postgres:12
     volumes:
       - /var/lib/postgresql/data
       - ./config/db:/docker-entrypoint-initdb.d
-    ports: 
-      - 5432:5432
     environment:
       POSTGRES_DB: blog
       POSTGRES_PASSWORD: blog
       POSTGRES_USER: blog
     networks:
-      - web
+      - web 
 networks:
   web:
     driver: bridge

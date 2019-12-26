@@ -9,8 +9,8 @@ WORKDIR /app
 
 # install dependencies
 COPY Gemfile /app/Gemfile
-RUN bundle i
+RUN bundle i 
 
 COPY . /app
-
-CMD rails s -b 0.0.0.0
+EXPOSE 80
+CMD rails s -b 0.0.0.0 -p 80

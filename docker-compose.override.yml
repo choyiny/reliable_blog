@@ -1,2 +1,19 @@
 # override parts of default docker-compose.yml
-version: '3.5'
+version: '3.7'
+services:
+  backend:
+    ports:
+      - 3000:80
+    build:
+      args:
+        - BUNDLE_PATH=/box
+    command: bash -c "
+      rm -f /app/tmp/pids/server.pid
+      && rails s -b 0.0.0.0 -p 80"
+  frontend:
+    ports:
+      - 4200:80
+  db:
+    ports: 
+      - 5423:5432
+
