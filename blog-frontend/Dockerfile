@@ -2,7 +2,7 @@ FROM node:10 as build-app
 WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install
-RUN npm install -g @angular/cli@8.2.14
+RUN npm install -g @angular/cli@8.3.21
 COPY . .
 RUN ng build --configuration=production
 
