@@ -2,9 +2,9 @@ FROM node:10 as build-app
 WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install
-RUN npm install -g @angular/cli@8.2.14
+RUN npm install -g @angular/cli@8.3.14
 COPY . .
-RUN ng build --configuration=production
+RUN ng build --prod --configuration=production
 
 FROM nginx:alpine
-COPY --from=build-app /usr/src/app/dist/ /usr/share/nginx/html
+COPY --from=build-app /usr/src/app/dist/blog-frontend /usr/share/nginx/html

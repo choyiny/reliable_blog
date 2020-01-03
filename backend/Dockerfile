@@ -3,7 +3,7 @@ FROM ruby:2.6.3
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-RUN apt-get update && apt-get install -y sqlite3 --no-install-recommends && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y postgresql postgresql-contrib --no-install-recommends && rm -rf /var/lib/apt/lists/*
 
 RUN gem install bundler:2.0.2
 
@@ -17,8 +17,6 @@ RUN bundle install --without development test
 
 COPY . /usr/src/app
 RUN bundle exec rake
-
-RUN bundle exec rake db:migrate
 
 EXPOSE 3000
 CMD ["rails", "server", "-b", "0.0.0.0"]

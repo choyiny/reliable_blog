@@ -85,7 +85,7 @@
 
 - name: Install Docker module for Ansible
   pip: 
-    name: docker-py
+    name: docker
   become: yes
 
 - name: Deploy test container
@@ -97,11 +97,15 @@
     auto_remove: yes
   become: yes
 
+- name: Create Docker user group
+  group:
+    name: docker
+
 - name: Add users to docker group
   user:
     name: "{{ item }}"
     groups: docker
     append: yes
-  with_items: docker.users
+  loop: "{{ docker.users }}"
   become: yes
 

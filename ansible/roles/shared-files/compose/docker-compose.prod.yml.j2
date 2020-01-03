@@ -16,29 +16,26 @@ services:
     labels:
       - "com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy"
     environment:
-      - DEFAULT_HOST=localhost
+      - DEFAULT_HOST={{ host_name }}
     networks:
       - web
   backend:
-    image: reliable-blog:backend-dev
-    volumes:
-      - ./backend:/app
-      - gems:/usr/local/bundle
+    image: {{ backend_image }}
     networks:
       - web
     depends_on:
       - db
     environment:
-      - VIRTUAL_HOST=backend.localhost
+      - VIRTUAL_HOST=backend.{{ host_name }}
+      - LETSENCRYPT_HOST=backend.{{ host_name }}
+      - SECRET_KEY_BASE=5a37811464e7d378488b0f073e2193b093682e4e21f5d6f3ae0a4e1781e61a351fdc88a843424e81c73fb484a40d23f92c8dafac4870e74ede6e5e174423010
   frontend:
-    image: reliable-blog:frontend-dev
-    volumes:
-      - ./blog-frontend:/app
-      - node_modules:/app/node_modules
+    image: {{ frontend_image }}
     networks:
       - web
     environment:
-      - VIRTUAL_HOST=localhost
+      - VIRTUAL_HOST={{ host_name }}
+      - LETSENCRYPT_HOST={{ host_name }}
   db:
     image: postgres:12
     volumes:
@@ -49,10 +46,20 @@ services:
       POSTGRES_PASSWORD: blog
       POSTGRES_USER: blog
     networks:
-      - web 
+      - web
+  letsencrypt:
+    container_name: nginx-proxy-lets-encrypt
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    restart: always
+    depends_on:
+      - nginx-proxy
+    volumes:
+      - ./config/nginx/vhost:/etc/nginx/vhost.d
+      - ./config/nginx/html:/usr/share/nginx/html
+      - ./config/nginx/certs:/etc/nginx/certs:rw
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - web
 networks:
   web:
     driver: bridge
-volumes:
-  gems:
-  node_modules:
