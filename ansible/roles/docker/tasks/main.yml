@@ -1,4 +1,20 @@
 ---
+- name: Uninstall old versions of Docker
+  yum:
+    name: "{{ item }}"
+    state: removed
+  loop:
+    - docker
+    - docker-client
+    - docker-client-latest
+    - docker-common
+    - docker-latest
+    - docker-latest-logrotate
+    - docker-logrotate
+    - docker-engine
+  when: reinstall
+  become: yes
+
 - name: Install dependencies
   yum:
     name: "{{ item }}"
@@ -7,6 +23,8 @@
     - yum-utils
     - device-mapper-persistent-data
     - lvm2
+  when : item not in ansible_facts.packages
+  become: yes
 
 - name: Add Docker repo
   command: "yum-config-manager --add-repo {{ docker['repo_url'] }}"
@@ -20,18 +38,28 @@
     - docker-ce
     - docker-ce-cli
     - containerd.io
+  when : item not in ansible_facts.packages
+  become: yes
 
 - name: Start Docker service
   service:
     name: docker
     state: started
     enabled: yes
+  become: yes
+
+- name: Check Docker Compose exists
+  stat:
+    path: "/usr/local/bin/docker-compose"
+  register: docker_compose
 
 - name: Download Docker Compose
   get_url:
     url: "{{ docker['compose_url'] }}"
     dest: "/usr/local/bin/docker-compose"
     mode: "+x"
+  when: docker_compose.stat.exists == False 
+  become: yes
 
 - name: Create Compose symlink to /usr/bin
   file:
@@ -40,6 +68,7 @@
     owner: root
     group: root
     state: link
+  become: yes
 
 - name: Create Docker folders
   file:
@@ -52,12 +81,27 @@
     - backups
     - config
     - log
+  become: yes
+
 - name: Install Docker module for Ansible
   pip: 
     name: docker-py
+  become: yes
+
 - name: Deploy test container
   docker_container:
     image: hello-world
     state: started
     name: hello-world
     output_logs: yes
+    auto_remove: yes
+  become: yes
+
+- name: Add users to docker group
+  user:
+    name: "{{ item }}"
+    groups: docker
+    append: yes
+  with_items: docker.users
+  become: yes
+

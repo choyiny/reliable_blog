@@ -1,0 +1,6 @@
+- hosts: 34.66.245.162
+  roles: 
+    - common
+    - docker
+
+
