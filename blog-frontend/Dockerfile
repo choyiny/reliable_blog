@@ -11,9 +11,5 @@ RUN ng build --prod --configuration=production
 
 # Stage 2: serving the actual app
 FROM nginx:alpine
-<<<<<<< Updated upstream
 COPY --from=build-app /usr/src/app/dist/blog-frontend /usr/share/nginx/html
-=======
-COPY --from=build-app /usr/src/app/dist/ /usr/share/nginx/html
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
->>>>>>> Stashed changes
