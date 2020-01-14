@@ -1,5 +1,5 @@
-- hosts: 35.192.54.163 
-  roles: 
+- hosts: deployingreliable.software
+  roles:
     - common
     - docker
   vars:
@@ -24,7 +24,6 @@
         password: "{{ docker.password }}"
     # TODO Add certs to host and use docker_compose instead of shell command
     - name: Run compose
-      shell: 
+      shell:
         chdir: /opt/reliable/docker
         cmd: docker-compose up -d && docker-compose exec backend rake db:migrate
-
