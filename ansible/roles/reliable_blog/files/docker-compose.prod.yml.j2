@@ -28,7 +28,7 @@ services:
     environment:
       - VIRTUAL_HOST=backend.{{ host_name }}
       - LETSENCRYPT_HOST=backend.{{ host_name }}
-      - SECRET_KEY_BASE=5a37811464e7d378488b0f073e2193b093682e4e21f5d6f3ae0a4e1781e61a351fdc88a843424e81c73fb484a40d23f92c8dafac4870e74ede6e5e174423010
+      - SECRET_KEY_BASE={{ backend.secret_key_base }}
   frontend:
     image: {{ frontend_image }}
     networks:

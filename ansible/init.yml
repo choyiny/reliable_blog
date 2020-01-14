@@ -1,0 +1,55 @@
+###########################################################################################################
+# Playbook: Basic Initial Server Setup
+#
+# https://deployingreliable.software/
+#
+# Week 1: A server environment used for deployment that is consistent with best practices.
+#
+# How to Run
+# ==========
+# $ ansible-playbook -i inventory -u root --extra-vars="target=<domain name>" init.yml
+###########################################################################################################
+---
+- hosts: "{{ target }}"
+  tasks:
+    - name: Run common
+      include_role:
+        name: common
+    - name: "Load users data"
+      include_vars:
+        file: users.json
+        name: users
+    - name: Ensure ansible group exists
+      group:
+        name: ansible
+        state: present
+    - name: Create users
+      user:
+        name: "{{ item.username }}"
+        groups: "{{ item.groups }}"
+        append: yes
+        # this is just 'centos'
+        password: "$6$mysecretsalt$ZGEKmW.xOJYyospmz5LpMc8qK6PtkAHGt15lLn1d9UTzK9ygIEOITwXo9BFt769wV/VtwpbIZ4HWG.1CFQE8K1"
+      loop: "{{ users.users }}"
+    - name: Add SSH keys for users
+      authorized_key:
+        user: "{{ item.username }}"
+        state: present
+        key: "{{ item.ssh_key }}"
+      loop: "{{ users.users }}"
+
+    - name: Disable root login
+      replace:
+        path: /etc/ssh/sshd_config
+        regexp: '#?PermitRootLogin (yes|no)'
+        replace: 'PermitRootLogin no'
+
+    - name: Disable password auth login
+      replace:
+        path: /etc/ssh/sshd_config
+        regexp: '#?PasswordAuthentication (yes|no)'
+        replace: 'PasswordAuthentication no'
+    - name: Restart SSH service
+      service:
+        name: sshd
+        state: reloaded
