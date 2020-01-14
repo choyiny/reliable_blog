@@ -3,8 +3,8 @@
     - common
     - docker
   vars:
-    backend_image: liujordan/reliable-blog:backend-1.0.0
-    frontend_image: liujordan/reliable-blog:frontend-1.0.0
+    backend_image: docker.pkg.github.com/choyiny/reliable_blog/reliable-blog-backend:34398645b9d0
+    frontend_image: docker.pkg.github.com/choyiny/reliable_blog/reliable-blog-frontend:34398645b9d0
     host_name: deployingreliable.software
   tasks:
     - name: Copy compose file
