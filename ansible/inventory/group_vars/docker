@@ -5,3 +5,6 @@ docker:
   users:
     - jordan.liu
     - choyiny
+  username: liujordan
+  password: d592f56d3ca712499eab041cb545a3f21ef896f2
+  registry: docker.pkg.github.com

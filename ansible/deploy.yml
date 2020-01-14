@@ -17,6 +17,11 @@
         src: ./roles/shared-files/config
         dest: /opt/reliable/docker/config
       become: yes
+    - name: Login to Github Registries
+      docker_login:
+        registry: "{{ docker.registry }}"
+        username: "{{ docker.username }}"
+        password: "{{ docker.password }}"
     # TODO Add certs to host and use docker_compose instead of shell command
     - name: Run compose
       shell: 
