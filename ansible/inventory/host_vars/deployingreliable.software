@@ -2,4 +2,4 @@ host_name: deployingreliable.software
 backend_image: docker.pkg.github.com/choyiny/reliable_blog/reliable-blog-backend:34398645b9d0
 frontend_image: docker.pkg.github.com/choyiny/reliable_blog/reliable-blog-frontend:34398645b9d0
 backend:
-  - secret_key_base: 5a37811464e7d378488b0f073e2193b093682e4e21f5d6f3ae0a4e1781e61a351fdc88a843424e81c73fb484a40d23f92c8dafac4870e74ede6e5e174423010
+  secret_key_base: 5a37811464e7d378488b0f073e2193b093682e4e21f5d6f3ae0a4e1781e61a351fdc88a843424e81c73fb484a40d23f92c8dafac4870e74ede6e5e174423010
