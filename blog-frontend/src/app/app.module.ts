@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {ErrorHandler, NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -21,6 +21,7 @@ import { FooterComponent } from './includes/footer/footer.component';
 import { EditComponent } from './components/edit/edit.component';
 import { ExperimentsComponent } from './components/experiments/experiments.component';
 import { StatusComponent } from './components/status/status.component';
+import {SentryErrorHandler} from '@root/interceptors/sentry.error-handler';
 
 
 @NgModule({
@@ -76,6 +77,10 @@ import { StatusComponent } from './components/status/status.component';
       provide: HTTP_INTERCEPTORS,
       useClass: IdentityInterceptor,
       multi: true
+    },
+    {
+      provide: ErrorHandler,
+      useClass: SentryErrorHandler
     }
   ],
   bootstrap: [AppComponent]

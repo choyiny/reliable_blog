@@ -41,5 +41,9 @@ module Backend
         resource '*', headers: :any, methods: [:get, :post, :options, :put, :patch, :delete]
       end
     end
+
+    Raven.configure do |config|
+      config.dsn = 'https://da3b7d51a9b949ee8ed047304e110b35:0b3b79998f104f22846de894e884aa86@sentry.io/1884988'
+    end
   end
 end
