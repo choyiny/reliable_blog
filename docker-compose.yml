@@ -1,44 +1,29 @@
 version: '3.7'
 services:
-  nginx-proxy:
-    container_name: nginx-proxy
-    image: jwilder/nginx-proxy:alpine
-    restart: always
-    ports:
-      - 443:443
-      - 80:80
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-      - ./config/nginx/vhost:/etc/nginx/vhost.d
-      - ./config/nginx/html:/usr/share/nginx/html
-      - ./config/nginx/certs:/etc/nginx/certs:ro
-      - ./config/nginx/certs:/etc/nginx/dhparam
-    labels:
-      - "com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy"
-    environment:
-      - DEFAULT_HOST=localhost
-    networks:
-      - web
   backend:
-    image: reliable-blog:backend-dev
+    build:
+      context: ./backend
+      dockerfile: dev.Dockerfile
     volumes:
-      - ./backend:/app
-      - gems:/usr/local/bundle
-    networks:
-      - web
+    - ./backend:/app
+    - gems:/usr/local/bundle
     depends_on:
       - db
-    environment:
-      - VIRTUAL_HOST=backend.localhost
+    ports:
+      - 3000:80
+    command: bash -c "
+      rm -f /app/tmp/pids/server.pid
+      && bundle i
+      && rails s -b 0.0.0.0 -p 80"
   frontend:
-    image: reliable-blog:frontend-dev
+    build:
+      context: ./blog-frontend
+      dockerfile: dev.Dockerfile
     volumes:
       - ./blog-frontend:/app
       - node_modules:/app/node_modules
-    networks:
-      - web
-    environment:
-      - VIRTUAL_HOST=localhost
+    ports:
+      - 4200:80
   db:
     image: postgres:12
     volumes:
@@ -48,11 +33,6 @@ services:
       POSTGRES_DB: blog
       POSTGRES_PASSWORD: blog
       POSTGRES_USER: blog
-    networks:
-      - web 
-networks:
-  web:
-    driver: bridge
 volumes:
   gems:
   node_modules:

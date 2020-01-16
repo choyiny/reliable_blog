@@ -1,7 +1,7 @@
 # adapted from https://malcoded.com/posts/angular-docker
 
 # stage 1: compile the angular app
-FROM node:10 as build-app
+FROM node:13-alpine as build-app
 WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install
