@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - master # on push to master
+    paths:
+      - blog-frontend/**
 
 jobs:
   build:
