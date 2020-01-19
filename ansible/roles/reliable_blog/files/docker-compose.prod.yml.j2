@@ -13,6 +13,7 @@ services:
       - ./config/nginx/html:/usr/share/nginx/html
       - ./config/nginx/certs:/etc/nginx/certs:ro
       - ./config/nginx/certs:/etc/nginx/dhparam
+      - ./config/nginx/nginx.tmpl:/app/nginx.tmpl
     labels:
       - "com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy"
     environment:
