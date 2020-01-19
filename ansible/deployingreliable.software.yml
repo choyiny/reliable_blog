@@ -1,0 +1,6 @@
+---
+- hosts: deployingreliable.software
+  roles:
+    - common
+    - docker
+    - reliable_blog

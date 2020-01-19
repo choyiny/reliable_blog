@@ -7,3 +7,20 @@
   with_first_found:
     - "{{ ansible_distribution }}-{{ ansible_distribution_major_version}}.yml"
     - "{{ ansible_distribution }}.yml"
+- name: Disable root login
+  replace:
+    path: /etc/ssh/sshd_config
+    regexp: '#?PermitRootLogin (yes|no)'
+    replace: 'PermitRootLogin no'
+  become: yes
+- name: Disable password auth login
+  replace:
+    path: /etc/ssh/sshd_config
+    regexp: '#?PasswordAuthentication (yes|no)'
+    replace: 'PasswordAuthentication no'
+  become: yes
+- name: Restart SSH service
+  service:
+    name: sshd
+    state: reloaded
+  become: yes
