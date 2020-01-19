@@ -1,0 +1,4 @@
+---
+- hosts: deployingreliable.software
+  roles:
+    - cloudalchemy.node-exporter
