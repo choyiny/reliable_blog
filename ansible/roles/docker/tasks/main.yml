@@ -35,9 +35,9 @@
     name: "{{ item }}"
     state: present
   loop:
+    - containerd.io
     - docker-ce
     - docker-ce-cli
-    - containerd.io
   when : item not in ansible_facts.packages
   become: yes
 
@@ -58,7 +58,7 @@
     url: "{{ docker['compose_url'] }}"
     dest: "/usr/local/bin/docker-compose"
     mode: "+x"
-  when: docker_compose.stat.exists == False 
+  when: docker_compose.stat.exists == False
   become: yes
 
 - name: Create Compose symlink to /usr/bin
@@ -84,7 +84,7 @@
   become: yes
 
 - name: Install Docker module for Ansible
-  pip: 
+  pip:
     name: docker
   become: yes
 
@@ -108,4 +108,3 @@
     append: yes
   loop: "{{ docker.users }}"
   become: yes
-

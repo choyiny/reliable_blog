@@ -1,0 +1,6 @@
+---
+- hosts: monitor.deployingreliable.software
+  roles:
+    - common
+    - docker
+    - monitoring
