@@ -31,4 +31,5 @@ node_modules
 backend_old
 .DS_Store
 
+# vault password for Ansible
 *.secret
