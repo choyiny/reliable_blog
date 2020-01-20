@@ -7,7 +7,12 @@
 - name: Copy configs
   copy:
     src: ./roles/shared-files/config
-    dest: /opt/reliable/docker/config
+    dest: /opt/reliable/docker
+  become: yes
+- name: Copy grafana.ini template
+  template:
+    src: grafana.ini.j2
+    dest: /opt/reliable/docker/config/grafana/grafana.ini
   become: yes
 - name: Run compose
   shell:

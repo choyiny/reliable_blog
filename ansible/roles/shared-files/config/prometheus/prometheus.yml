@@ -5,10 +5,9 @@ scrape_configs:
     static_configs:
       - targets: ['localhost:9090']
 
-  - job_name: 'docker_servers'
+  - job_name: 'docker-daemon'
     static_configs:
-      - targets: 
-        - 'deployingreliable.software:9323'
-        - 'deployingreliable.software:9100'
-        - 'monitor.deployingreliable.software:9323'
-        - 'monitor.deployingreliable.software:9100'
+      - targets: ['deployingreliable.software:9323', 'monitor.deployingreliable.software:9323']
+  - job_name: 'node-exporter'
+    static_configs:
+      - targets: ['deployingreliable.software:9100', 'monitor.deployingreliable.software:9100']

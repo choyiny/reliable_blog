@@ -19,11 +19,8 @@
     regexp: '#?PasswordAuthentication (yes|no)'
     replace: 'PasswordAuthentication no'
   become: yes
-- name: Restart SSH service
-  service:
-    name: sshd
-    state: reloaded
-  become: yes
+  notify: 
+    - Restart SSH
 - name: Download node-exporter
   get_url:
     url: https://github.com/prometheus/node_exporter/releases/download/v0.18.1/node_exporter-0.18.1.linux-amd64.tar.gz
