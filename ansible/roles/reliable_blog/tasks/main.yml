@@ -7,7 +7,7 @@
 - name: Copy configs
   copy:
     src: ./roles/shared-files/config
-    dest: /opt/reliable/docker/config
+    dest: /opt/reliable/docker
   become: yes
 - name: Login to Github Registries
   docker_login:

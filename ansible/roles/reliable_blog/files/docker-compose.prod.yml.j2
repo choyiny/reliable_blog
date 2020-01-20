@@ -60,6 +60,19 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
       - web
+  prometheus:
+    image: prom/prometheus
+    environment:
+      - VIRTUAL_HOST=prom.{{ host_name }}
+      - LETSENCRYPT_HOST=prom.{{ host_name }}
+    volumes:
+      - prometheus-storage:/prometheus
+      - ./config/prometheus:/etc/prometheus
+    networks:
+      - web
 networks:
   web:
     driver: bridge
+
+volumes:
+  prometheus-storage:

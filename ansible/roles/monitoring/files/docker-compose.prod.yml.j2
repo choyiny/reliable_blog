@@ -27,6 +27,8 @@ services:
       - VIRTUAL_HOST={{ host_name }}
       - LETSENCRYPT_HOST={{ host_name }}
       - GF_SECURITY_ADMIN_PASSWORD={{ grafana.grafana_admin_password }}
+    volumes:
+      - grafana-storage:/var/lib/grafana
   letsencrypt:
     container_name: nginx-proxy-lets-encrypt
     image: jrcs/letsencrypt-nginx-proxy-companion
@@ -40,6 +42,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
       - web
+volumes:
+  grafana-storage:
 networks:
   web:
     driver: bridge

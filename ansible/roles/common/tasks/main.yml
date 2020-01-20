@@ -24,3 +24,34 @@
     name: sshd
     state: reloaded
   become: yes
+- name: Download node-exporter
+  get_url:
+    url: https://github.com/prometheus/node_exporter/releases/download/v0.18.1/node_exporter-0.18.1.linux-amd64.tar.gz
+    dest: /tmp/node_exporter-0.18.1.linux-amd64.tar.gz
+- name: Unzip the tarball
+  shell:
+    chdir: /tmp
+    cmd: tar -xvf /tmp/node_exporter-0.18.1.linux-amd64.tar.gz
+- name: Move node-exporter to path
+  shell: 
+    chdir: /tmp
+    cmd: mv node_exporter-0.18.1.linux-amd64/node_exporter /usr/local/bin
+  become: yes
+- name: Add node_exporter user
+  user:
+    name: node_exporter
+    shell: /usr/bin/false
+    system: yes
+  become: yes
+- name: Copy the service file
+  copy:
+    src: node_exporter.service
+    dest: /etc/systemd/system/node_exporter.service
+  become: yes
+- name: Reload Daemon and start service
+  systemd:
+    daemon_reload: yes
+    enabled: yes
+    state: started
+    name: node_exporter
+  become: yes

@@ -40,6 +40,12 @@
     - docker-ce-cli
   when : item not in ansible_facts.packages
   become: yes
+  
+- name: Copy docker daemon.json
+  copy: 
+    src: daemon.json
+    dest: /etc/docker/daemon.json
+  become: yes
 
 - name: Start Docker service
   service:
