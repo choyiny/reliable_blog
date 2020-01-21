@@ -39,7 +39,7 @@ services:
   db:
     image: postgres:12
     volumes:
-      - /var/lib/postgresql/data
+      - postgres-storage:/var/lib/postgresql/data
       - ./config/db:/docker-entrypoint-initdb.d
     environment:
       POSTGRES_DB: blog
@@ -76,3 +76,4 @@ networks:
 
 volumes:
   prometheus-storage:
+  postgres-storage:
