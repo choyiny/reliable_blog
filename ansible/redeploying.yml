@@ -1,4 +1,4 @@
 ---
 - hosts: deployingreliable.software
   roles:
-    - cloudalchemy.node-exporter
+    - reliable_blog

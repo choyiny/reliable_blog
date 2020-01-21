@@ -18,7 +18,7 @@
 - name: Run compose
   shell:
     chdir: /opt/reliable/docker
-    cmd: docker-compose up -d && docker-compose exec backend rake db:migrate
+    cmd: docker-compose down && docker-compose up -d && docker-compose exec backend rake db:migrate
 - name: Run migrations
   shell:
     chdir: /opt/reliable/docker

@@ -14,6 +14,7 @@ services:
       - ./config/nginx/certs:/etc/nginx/certs:ro
       - ./config/nginx/certs:/etc/nginx/dhparam
       - ./config/nginx/nginx.tmpl:/app/nginx.tmpl
+      - ./config/nginx/htpasswd:/etc/nginx/htpasswd/prom.{{ host_name }}
     labels:
       - "com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy"
     environment:
