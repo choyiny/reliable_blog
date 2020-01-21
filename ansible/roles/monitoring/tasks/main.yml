@@ -1,0 +1,20 @@
+---
+- name: Copy compose file
+  template:
+    src: ./files/docker-compose.prod.yml.j2
+    dest: /opt/reliable/docker/docker-compose.yml
+  become: yes
+- name: Copy configs
+  copy:
+    src: ./roles/shared-files/config
+    dest: /opt/reliable/docker
+  become: yes
+- name: Copy grafana.ini template
+  template:
+    src: grafana.ini.j2
+    dest: /opt/reliable/docker/config/grafana/grafana.ini
+  become: yes
+- name: Run compose
+  shell:
+    chdir: /opt/reliable/docker
+    cmd: docker-compose up -d

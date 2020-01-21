@@ -1,0 +1,4 @@
+---
+- hosts: deployingreliable.software
+  roles:
+    - reliable_blog

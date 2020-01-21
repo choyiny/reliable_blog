@@ -13,42 +13,24 @@ services:
       - ./config/nginx/html:/usr/share/nginx/html
       - ./config/nginx/certs:/etc/nginx/certs:ro
       - ./config/nginx/certs:/etc/nginx/dhparam
-      - ./config/nginx/nginx.tmpl:/app/nginx.tmpl
-      - ./config/nginx/htpasswd:/etc/nginx/htpasswd/prom.{{ host_name }}
     labels:
       - "com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy"
     environment:
       - DEFAULT_HOST={{ host_name }}
     networks:
       - web
-  backend:
-    image: {{ backend_image }}
-    networks:
-      - web
-    depends_on:
-      - db
-    environment:
-      - VIRTUAL_HOST=backend.{{ host_name }}
-      - LETSENCRYPT_HOST=backend.{{ host_name }}
-      - SECRET_KEY_BASE={{ backend.secret_key_base }}
-  frontend:
-    image: {{ frontend_image }}
+  grafana:
+    image: grafana/grafana:6.5.3
     networks:
       - web
     environment:
       - VIRTUAL_HOST={{ host_name }}
       - LETSENCRYPT_HOST={{ host_name }}
-  db:
-    image: postgres:12
+      - GF_SECURITY_ADMIN_PASSWORD={{ grafana.grafana_admin_password }}
+      - GF_SERVER_ROOT_URL={{ grafana.root_url }}
     volumes:
-      - postgres-storage:/var/lib/postgresql/data
-      - ./config/db:/docker-entrypoint-initdb.d
-    environment:
-      POSTGRES_DB: blog
-      POSTGRES_PASSWORD: blog
-      POSTGRES_USER: blog
-    networks:
-      - web
+      - grafana-storage:/var/lib/grafana
+      - ./config/grafana/grafana.ini:/etc/grafana/grafana.ini
   letsencrypt:
     container_name: nginx-proxy-lets-encrypt
     image: jrcs/letsencrypt-nginx-proxy-companion
@@ -62,20 +44,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
       - web
-  prometheus:
-    image: prom/prometheus
-    environment:
-      - VIRTUAL_HOST=prom.{{ host_name }}
-      - LETSENCRYPT_HOST=prom.{{ host_name }}
-    volumes:
-      - prometheus-storage:/prometheus
-      - ./config/prometheus:/etc/prometheus
-    networks:
-      - web
+volumes:
+  grafana-storage:
 networks:
   web:
     driver: bridge
-
-volumes:
-  prometheus-storage:
-  postgres-storage:

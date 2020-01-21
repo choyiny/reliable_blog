@@ -5,6 +5,10 @@ On MacOS, you can use Homebrew to install ansible. Otherwise, follow [these inst
 ```
 $ brew install ansible
 ```
+Then install third party roles for Ansible.
+```
+$ ansible-galaxy install -r requirements.yml
+```
 
 ## Initial Setup (init.yml)
 When setting up a new server (eg. spinning up a CentOS DO Droplet), run the following command after editing users.json.

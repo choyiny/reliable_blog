@@ -7,7 +7,7 @@
 - name: Copy configs
   copy:
     src: ./roles/shared-files/config
-    dest: /opt/reliable/docker/config
+    dest: /opt/reliable/docker
   become: yes
 - name: Login to Github Registries
   docker_login:
@@ -18,4 +18,8 @@
 - name: Run compose
   shell:
     chdir: /opt/reliable/docker
-    cmd: docker-compose up -d && docker-compose exec backend rake db:migrate
+    cmd: docker-compose down && docker-compose up -d && docker-compose exec backend rake db:migrate
+- name: Run migrations
+  shell:
+    chdir: /opt/reliable/docker
+    cmd: docker-compose exec backend rake db:migrate
