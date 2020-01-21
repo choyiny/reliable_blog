@@ -1,5 +1,6 @@
 host_name: monitor.deployingreliable.software
 grafana:
+  root_url: https://monitor.deployingreliable.software/
   grafana_admin_password: !vault |
     $ANSIBLE_VAULT;1.1;AES256
     36333731656136653461356462333234326163306562336266623265333532643466316530636365
