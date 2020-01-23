@@ -72,10 +72,35 @@ services:
       - ./config/prometheus:/etc/prometheus
     networks:
       - web
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.5.2
+    environment:
+      - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    volumes:
+      - elasticsearch-storage:/usr/share/elasticsearch/data
+      - ./config/elasticsearch/jvm.options:/usr/share/elasticsearch/config/jvm.options
+      - ./config/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+    networks:
+      - elastic
+  kibana:
+    depends_on:
+      - elasticsearch
+    image: docker.elastic.co/kibana/kibana:7.5.2
+    environment:
+      - VIRTUAL_HOST=kibana.{{ host_name }}
+      - LETSENCRYPT_HOST=kibana.{{ host_name }}
+    networks:
+      - web
+      - elastic
+    volumes:
+      - ./config/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml
 networks:
   web:
     driver: bridge
-
+  elastic:
+    driver: bridge
 volumes:
   prometheus-storage:
   postgres-storage:
+  elasticsearch-storage:
