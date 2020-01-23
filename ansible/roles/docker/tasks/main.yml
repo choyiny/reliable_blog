@@ -28,6 +28,7 @@
 
 - name: Add Docker repo
   command: "yum-config-manager --add-repo {{ docker['repo_url'] }}"
+  when : 'docker-ce' not in ansible_facts.packages
   become: yes
 
 - name: Install Docker
@@ -45,12 +46,14 @@
   copy: 
     src: daemon.json
     dest: /etc/docker/daemon.json
+  register:
+    - restart_docker
   become: yes
 
 - name: Start Docker service
   service:
     name: docker
-    state: started
+    state: "{{ 'restarted' if restart_docker else 'started' }}"
     enabled: yes
   become: yes
 

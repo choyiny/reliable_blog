@@ -14,7 +14,6 @@
     registry: "{{ docker.registry }}"
     username: "{{ docker.username }}"
     password: "{{ docker.password }}"
-# TODO Add certs to host and use docker_compose instead of shell command
 - name: Run compose
   shell:
     chdir: /opt/reliable/docker

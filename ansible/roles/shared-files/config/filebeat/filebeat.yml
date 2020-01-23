@@ -1,0 +1,16 @@
+filebeat:
+  inputs:
+    - type: docker
+      containers.ids: '*'
+    - type: log
+      paths:
+        - /var/log/messages
+        - /var/log/*.log
+output:
+  elasticsearch:
+    hosts: ["https://elastic.deployingreliable.software:443"]
+    index: "filebeat-%{[agent.version]}-%{+yyyy.MM.dd}"
+    username: elastic
+    password: temppass
+setup.template.name: filebeat
+setup.template.pattern: "filebeat-*"

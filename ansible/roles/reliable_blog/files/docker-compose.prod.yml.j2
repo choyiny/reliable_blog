@@ -74,15 +74,17 @@ services:
       - web
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.5.2
-    environment:
-      - discovery.type=single-node
-      - ES_JAVA_OPTS=-Xms512m -Xmx512m
     volumes:
       - elasticsearch-storage:/usr/share/elasticsearch/data
       - ./config/elasticsearch/jvm.options:/usr/share/elasticsearch/config/jvm.options
       - ./config/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
     networks:
       - elastic
+      - web
+    environment:
+      - VIRTUAL_HOST=elastic.{{ host_name }}
+      - LETSENCRYPT_HOST=elastic.{{ host_name }}
+      - VIRTUAL_PORT=9200
   kibana:
     depends_on:
       - elasticsearch
@@ -95,6 +97,16 @@ services:
       - elastic
     volumes:
       - ./config/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:7.5.2
+    user: '0'
+    depends_on: 
+      - elasticsearch
+    volumes:
+      - ./config/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/log:/var/log
 networks:
   web:
     driver: bridge
