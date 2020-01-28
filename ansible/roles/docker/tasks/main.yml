@@ -41,9 +41,9 @@
     - docker-ce-cli
   when : item not in ansible_facts.packages
   become: yes
-  
+
 - name: Copy docker daemon.json
-  copy: 
+  copy:
     src: daemon.json
     dest: /etc/docker/daemon.json
   register: restart_docker

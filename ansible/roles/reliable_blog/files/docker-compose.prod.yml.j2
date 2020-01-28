@@ -100,7 +100,7 @@ services:
   filebeat:
     image: docker.elastic.co/beats/filebeat:7.5.2
     user: '0'
-    depends_on: 
+    depends_on:
       - elasticsearch
     volumes:
       - ./config/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
