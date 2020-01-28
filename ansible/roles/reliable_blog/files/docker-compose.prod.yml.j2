@@ -107,6 +107,17 @@ services:
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /var/log:/var/log
+    networks:
+      - elastic
+  logstash:
+    image: docker.elastic.co/logstash/logstash:7.5.2
+    volumes:
+      - ./config/logstash/logstash.yml:/usr/share/logstash/config/logstash.yml
+      - ./config/logstash/pipeline/:/usr/share/logstash/pipeline/
+    expose:
+      - 5044
+    networks:
+      - elastic
 networks:
   web:
     driver: bridge
