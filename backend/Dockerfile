@@ -5,7 +5,7 @@ WORKDIR /usr/src/app
 
 RUN apk update \
     && apk add postgresql-dev postgresql-client build-base libxml2-dev libxslt-dev \
-    && rm -rf /var/cache/apk/*
+    && rm -rf /var/cache/apk/* \
     && gem install bundler:2.0.2
 
 ENV RAILS_ENV production
