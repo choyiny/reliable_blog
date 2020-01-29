@@ -14,11 +14,10 @@
     registry: "{{ docker.registry }}"
     username: "{{ docker.username }}"
     password: "{{ docker.password }}"
-# TODO Add certs to host and use docker_compose instead of shell command
 - name: Run compose
   shell:
     chdir: /opt/reliable/docker
-    cmd: docker-compose down && docker-compose up -d && docker-compose exec backend rake db:migrate
+    cmd: docker-compose pull && docker-compose down && docker-compose up -d && docker-compose exec backend rake db:migrate
 - name: Run migrations
   shell:
     chdir: /opt/reliable/docker

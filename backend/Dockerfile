@@ -1,11 +1,12 @@
-FROM ruby:2.6.3
+FROM ruby:2.6.5-alpine3.11
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-RUN apt-get update && apt-get install -y postgresql postgresql-contrib --no-install-recommends && rm -rf /var/lib/apt/lists/*
-
-RUN gem install bundler:2.0.2
+RUN apk update \
+    && apk add postgresql-dev postgresql-client build-base libxml2-dev libxslt-dev \
+    && rm -rf /var/cache/apk/* \
+    && gem install bundler:2.0.2
 
 ENV RAILS_ENV production
 ENV RAILS_LOG_TO_STDOUT true

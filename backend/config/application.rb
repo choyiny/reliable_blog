@@ -35,11 +35,8 @@ module Backend
     config.api_only = true
     config.autoload_paths << Rails.root.join('lib')
 
-    config.middleware.insert_before 0, Rack::Cors do
-      allow do
-        origins '*'
-        resource '*', headers: :any, methods: [:get, :post, :options, :put, :patch, :delete]
-      end
+    Raven.configure do |config|
+      config.dsn = 'https://da3b7d51a9b949ee8ed047304e110b35:0b3b79998f104f22846de894e884aa86@sentry.io/1884988'
     end
 
     Raven.configure do |config|
