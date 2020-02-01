@@ -1,0 +1,28 @@
+heartbeat.monitors:
+- type: http
+  schedule: '@every 30s'
+  urls:
+    - http://elasticsearch:9200
+    - http://kibana:5601
+- type: https
+  schedule: '@every 30s'
+  urls:
+    - https://deployingreliable.software
+    - https://backend.deployingreliable.software/posts
+    - https://monitor.deployingreliable.software
+  timeout: 3s
+  check.response.status: 200
+
+- type: icmp
+  schedule: '@every 5s'
+  hosts:
+    - elasticsearch
+    - kibana
+
+processors:
+- add_cloud_metadata: ~
+
+output.elasticsearch:
+  hosts: '${ELASTICSEARCH_HOSTS:elasticsearch:9200}'
+  username: '${ELASTICSEARCH_USERNAME:elastic}'
+  password: '${ELASTICSEARCH_PASSWORD:temppass}'

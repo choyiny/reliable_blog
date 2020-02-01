@@ -97,6 +97,7 @@ services:
   kibana:
     depends_on:
       - elasticsearch
+      - apm-server
     image: docker.elastic.co/kibana/kibana:7.5.2
     environment:
       - VIRTUAL_HOST=kibana.{{ host_name }}
@@ -106,6 +107,16 @@ services:
       - elastic
     volumes:
       - ./config/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml
+  heartbeat:
+    image: docker.elastic.co/beats/heartbeat:7.5.2
+    networks:
+      - web
+      - elastic
+    volumes:
+      - ./config/heartbeat/heartbeat.yml:/usr/share/heartbeat/heartbeat.yml:ro
+    environment:
+      - setup.kibana.host=kibana:5601
+      - output.elasticsearch.hosts=["elasticsearch:9200"]
   filebeat:
     image: docker.elastic.co/beats/filebeat:7.5.2
     user: '0'
