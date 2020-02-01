@@ -1,6 +1,6 @@
 host_name: deployingreliable.software
 backend_image: docker.pkg.github.com/choyiny/reliable_blog/reliable-blog-backend:34398645b9d0
-frontend_image: docker.pkg.github.com/choyiny/reliable_blog/reliable-blog-frontend:34398645b9d0
+frontend_image: docker.pkg.github.com/choyiny/reliable_blog/reliable-blog-frontend:2d750c1a9753
 backend:
   secret_key_base: !vault |
     $ANSIBLE_VAULT;1.1;AES256

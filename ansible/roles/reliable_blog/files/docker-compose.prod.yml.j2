@@ -130,7 +130,9 @@ services:
 networks:
   web:
     driver: bridge
-
+  elastic:
+    driver: bridge
 volumes:
   prometheus-storage:
   postgres-storage:
+  elasticsearch-storage:
