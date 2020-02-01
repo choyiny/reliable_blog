@@ -1,0 +1,2 @@
+config_directory: /opt/reliable/docker/apm/config
+root_directory: /opt/reliable/docker/apm

@@ -1,0 +1,2 @@
+config_directory: /opt/reliable/docker/grafana/config
+root_directory: /opt/reliable/docker/grafana

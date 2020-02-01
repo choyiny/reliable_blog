@@ -3,4 +3,7 @@
   roles:
     - common
     - docker
+    - docker-nginx
     - reliable_blog
+    # - prometheus
+    # - elasticsearch

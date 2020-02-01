@@ -1,24 +1,31 @@
 ---
+- name: Create Docker folders
+  file:
+    path: "{{ root_directory }}"
+    owner: root
+    group: docker
+    state: directory
+    mode: 0755
 - name: Copy compose file
   template:
     src: ./files/docker-compose.prod.yml.j2
-    dest: /opt/reliable/docker/docker-compose.yml
+    dest: "{{ root_directory }}/docker-compose.yml"
   become: yes
 - name: Copy configs
   copy:
-    src: ./roles/shared-files/config
-    dest: /opt/reliable/docker
+    src: ./files/config
+    dest: "{{ config_directory }}"
   become: yes
 - name: Login to Github Registries
   docker_login:
     registry: "{{ docker.registry }}"
     username: "{{ docker.username }}"
     password: "{{ docker.password }}"
-- name: Run compose
-  shell:
-    chdir: /opt/reliable/docker
-    cmd: docker-compose pull && docker-compose down && docker-compose up -d && docker-compose exec backend rake db:migrate
+- name: Pull latest images
+  command: docker-compose -f "{{ root_directory }}/docker-compose.yml" pull
+- name: Take down compose
+  command: docker-compose -f "{{ root_directory }}/docker-compose.yml" down
+- name: Run Compose for reliable blog
+  command: docker-compose -f "{{ root_directory }}/docker-compose.yml" up -d
 - name: Run migrations
-  shell:
-    chdir: /opt/reliable/docker
-    cmd: docker-compose exec backend rake db:migrate
+  command: docker-compose -f "{{ root_directory }}/docker-compose.yml" exec backend rails db:migrate
