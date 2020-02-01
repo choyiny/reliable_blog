@@ -1,0 +1,17 @@
+---
+- name: Setup pre-requisites for cluster
+  hosts: 
+    - docker-cluster-1
+  roles:
+    - common
+    - docker
+
+- name: Initialize docker swarm
+  hosts: docker-masters
+  roles:
+    - docker-swarm-init
+
+- name: Add workers to the swarm
+  hosts: docker-workers
+  roles:
+    - docker-swarm-add-worker
