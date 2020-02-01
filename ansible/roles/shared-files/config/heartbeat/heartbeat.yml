@@ -2,14 +2,11 @@ heartbeat.monitors:
 - type: http
   schedule: '@every 30s'
   urls:
-    - http://elasticsearch:9200
-    - http://kibana:5601
-- type: https
-  schedule: '@every 30s'
-  urls:
     - https://deployingreliable.software
     - https://backend.deployingreliable.software/posts
     - https://monitor.deployingreliable.software
+    - http://elasticsearch:9200
+    - http://kibana:5601
   timeout: 3s
   check.response.status: 200
 
