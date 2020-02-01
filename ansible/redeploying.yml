@@ -1,4 +1,5 @@
 ---
 - hosts: deployingreliable.software
   roles:
+    - docker-nginx
     - reliable_blog

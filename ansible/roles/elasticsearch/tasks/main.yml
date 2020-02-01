@@ -1,0 +1,17 @@
+---
+- name: Copy compose file
+  template:
+    src: ./files/docker-compose.elastic.yml.j2
+    dest: /opt/reliable/docker/docker-compose.elastic.yml
+  become: yes
+- name: Copy configs
+  copy:
+    src: ./files/config
+    dest: "{{ config_directory }}"
+  become: yes
+- name: Pull latest images
+  command: docker-compose -f "{{ root_directory }}/docker-compose.grafana.yml" pull
+- name: Take down compose
+  command: docker-compose -f "{{ root_directory }}/docker-compose.grafana.yml" down
+- name: Run Compose for Docker nginx
+  command: docker-compose -f "{{ root_directory }}/docker-compose.grafana.yml" up -d

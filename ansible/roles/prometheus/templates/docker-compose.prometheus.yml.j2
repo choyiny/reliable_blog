@@ -1,0 +1,18 @@
+version: '3.7'
+services:
+  prometheus:
+    image: prom/prometheus
+    environment:
+      - VIRTUAL_HOST=prom.{{ host_name }}
+      - LETSENCRYPT_HOST=prom.{{ host_name }}
+    volumes:
+      - prometheus-storage:/prometheus
+      - ./config/prometheus:/etc/prometheus
+    networks:
+      - web
+volumes:
+  prometheus-storage:
+networks:
+  web:
+    external:
+      name: web-network
