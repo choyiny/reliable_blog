@@ -1,0 +1,2 @@
+config_directory: /opt/reliable/docker/nginx/configs
+root_directory: /opt/reliable/docker/nginx

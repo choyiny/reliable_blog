@@ -3,4 +3,5 @@
   roles:
     - common
     - docker
-    - monitoring
+    - docker-nginx
+    - grafana

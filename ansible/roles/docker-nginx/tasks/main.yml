@@ -1,0 +1,20 @@
+---
+- name: Copy compose file
+  template:
+    src: ./templates/docker-compose.nginx.yml.j2
+    dest: /opt/reliable/docker/docker-compose.nginx.yml
+  become: yes
+- name: Copy configs
+  copy:
+    src: ./files/config
+    dest: /opt/reliable/docker/config/nginx
+  become: yes
+- name: Pull latest images
+  command: docker-compose -f "{{ root_directory }}/docker-compose.nginx.yml" pull
+- name: Take down compose
+  command: docker-compose -f "{{ root_directory }}/docker-compose.nginx.yml" down
+- name: Run Compose for Docker nginx
+  command: docker-compose -f "{{ root_directory }}/docker-compose.nginx.yml" up -d
+- name: Restart nginx
+  command: 'docker-compose -f "{{ root_directory }}/docker-compose.nginx.yml" exec nginx-proxy nginx -s reload'
+  when: not output['changed']

@@ -1,3 +1,5 @@
+config_directory: /opt/reliable/docker/nginx/configs
+root_directory: /opt/reliable/docker/nginx
 host_name: monitor.deployingreliable.software
 grafana:
   root_url: https://monitor.deployingreliable.software/

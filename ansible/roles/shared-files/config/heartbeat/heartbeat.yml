@@ -5,16 +5,8 @@ heartbeat.monitors:
     - https://deployingreliable.software
     - https://backend.deployingreliable.software/posts
     - https://monitor.deployingreliable.software
-    - http://elasticsearch:9200
-    - http://kibana:5601
   timeout: 3s
   check.response.status: 200
-
-- type: icmp
-  schedule: '@every 5s'
-  hosts:
-    - elasticsearch
-    - kibana
 
 processors:
 - add_cloud_metadata: ~

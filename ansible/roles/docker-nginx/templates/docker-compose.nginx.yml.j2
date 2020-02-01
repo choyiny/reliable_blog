@@ -19,18 +19,6 @@ services:
       - DEFAULT_HOST={{ host_name }}
     networks:
       - web
-  grafana:
-    image: grafana/grafana:6.5.3
-    networks:
-      - web
-    environment:
-      - VIRTUAL_HOST={{ host_name }}
-      - LETSENCRYPT_HOST={{ host_name }}
-      - GF_SECURITY_ADMIN_PASSWORD={{ grafana.grafana_admin_password }}
-      - GF_SERVER_ROOT_URL={{ grafana.root_url }}
-    volumes:
-      - grafana-storage:/var/lib/grafana
-      - ./config/grafana/grafana.ini:/etc/grafana/grafana.ini
   letsencrypt:
     container_name: nginx-proxy-lets-encrypt
     image: jrcs/letsencrypt-nginx-proxy-companion
@@ -44,8 +32,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
       - web
-volumes:
-  grafana-storage:
 networks:
   web:
-    driver: bridge
+    name: web-network

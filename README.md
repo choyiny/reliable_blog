@@ -15,3 +15,17 @@ Prerequisites: Docker and Docker Compose installed in your system.
 ```
 $ docker-compose up -d
 ```
+
+## Technologies
+We try to use a range of technologies in this demo. Here are the list of technologies used and its functionality.
+
+### Application Stack
+- Ruby on Rails: Backend server REST framework
+- Angular 8: Frontend framework
+- Nginx: Reverse proxying for applications
+
+### Monitoring
+- Grafana: Dashboard to show statistics and alert if thresholds are exceeded.
+- node_exporter: A companion for Prometheus to export server statistics.
+- Prometheus: A time series database to store data.
+- Sentry: An external service to track application errors.
