@@ -10,6 +10,10 @@ services:
       - ./config/prometheus:/etc/prometheus
     networks:
       - web
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
 volumes:
   prometheus-storage:
 networks:

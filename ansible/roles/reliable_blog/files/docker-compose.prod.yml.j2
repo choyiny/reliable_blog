@@ -27,6 +27,10 @@ services:
       POSTGRES_USER: blog
     networks:
       - backend
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
   # heartbeat:
   #   image: docker.elastic.co/beats/heartbeat:7.5.2
   #   networks:

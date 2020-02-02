@@ -13,7 +13,7 @@
   become: yes
 - name: Copy configs
   copy:
-    src: ./files/config
+    src: ./files/config/
     dest: "{{ config_directory }}"
   become: yes
 - name: Login to Github Registries
@@ -22,10 +22,8 @@
     username: "{{ docker.username }}"
     password: "{{ docker.password }}"
 - name: Pull latest images
-  command: docker-compose -f "{{ root_directory }}/docker-compose.yml" pull
-- name: Take down compose
-  command: docker-compose -f "{{ root_directory }}/docker-compose.yml" down
-- name: Run Compose for reliable blog
-  command: docker-compose -f "{{ root_directory }}/docker-compose.yml" up -d
-- name: Run migrations
-  command: docker-compose -f "{{ root_directory }}/docker-compose.yml" exec backend rails db:migrate
+  command: docker-compose --log-level error -f "{{ root_directory }}/docker-compose.yml" pull
+- name: Deploy services
+  command: docker --log-level ERROR stack deploy -c "{{ root_directory }}/docker-compose.yml" blog
+# - name: Run migrations
+#   command: docker --log-level ERROR exec $(docker ps -q -f name=blog_rails | head -n 1) rails db:migrate

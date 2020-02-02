@@ -10,8 +10,6 @@
     dest: /opt/reliable/docker/prometheus
   become: yes
 - name: Pull latest images
-  command: docker-compose -f "{{ root_directory }}/docker-compose.prometheus.yml" pull
-- name: Take down compose
-  command: docker-compose -f "{{ root_directory }}/docker-compose.prometheus.yml" down
-- name: Run Compose for Docker nginx
-  command: docker-compose -f "{{ root_directory }}/docker-compose.prometheus.yml" up -d
+  command: docker-compose --log-level ERROR -f "{{ root_directory }}/docker-compose.prometheus.yml" pull
+- name: Deploy services
+  command: docker --log-level error stack deploy -c "{{ root_directory }}/docker-compose.prometheus.yml" prometheus

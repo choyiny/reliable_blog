@@ -19,6 +19,10 @@ services:
       - DEFAULT_HOST={{ host_name }}
     networks:
       - web
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
   letsencrypt:
     container_name: nginx-proxy-lets-encrypt
     image: jrcs/letsencrypt-nginx-proxy-companion
@@ -32,6 +36,10 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
       - web
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
 networks:
   web:
     name: web-network

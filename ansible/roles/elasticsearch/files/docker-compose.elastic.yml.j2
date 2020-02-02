@@ -12,6 +12,10 @@ services:
       - VIRTUAL_HOST=elastic.{{ host_name }}
       - LETSENCRYPT_HOST=elastic.{{ host_name }}
       - VIRTUAL_PORT=9200
+    deploy:
+      placement:
+        constraints:
+          - node.role == manage
 volumes:
   elasticsearch-storage:
 networks:
