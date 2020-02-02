@@ -1,0 +1,2 @@
+config_directory: /opt/reliable/docker/config/prometheus/
+root_directory: /opt/reliable/docker/prometheus

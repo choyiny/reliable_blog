@@ -3,10 +3,9 @@ services:
   apm-server:
     image: docker.elastic.co/apm/apm-server:7.5.2
     networks:
-      - web
+      - backend-network
     volumes:
       - ./config/apm-server.yml:/usr/share/apm-server/apm-server.yml:ro
 networks:
-  web:
-    external:
-      name: web-network
+  backend-network:
+    name: backend-network
