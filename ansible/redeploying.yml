@@ -2,7 +2,7 @@
 - hosts: deployingreliable.software
   roles:
     - docker-nginx
-    # - apm-server
-    # - reliable_blog
-    # - prometheus
-    # - elasticsearch
+    - apm-server
+    - reliable_blog
+    - prometheus
+    - elasticsearch
