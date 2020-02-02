@@ -1,8 +1,8 @@
 ---
 - name: Copy compose file
   template:
-    src: ./files/docker-compose.elastic.yml.j2
-    dest: /opt/reliable/docker/docker-compose.elastic.yml
+    src: ./templates/docker-compose.elastic.yml.j2
+    dest: "{{ root_directory }}/docker-compose.elastic.yml"
   become: yes
 - name: Copy configs
   copy:
@@ -10,8 +10,8 @@
     dest: "{{ config_directory }}"
   become: yes
 - name: Pull latest images
-  command: docker-compose -f "{{ root_directory }}/docker-compose.grafana.yml" pull
+  command: docker-compose -f "{{ root_directory }}/docker-compose.elastic.yml" pull
 - name: Take down compose
-  command: docker-compose -f "{{ root_directory }}/docker-compose.grafana.yml" down
+  command: docker-compose -f "{{ root_directory }}/docker-compose.elastic.yml" down
 - name: Run Compose for Docker nginx
-  command: docker-compose -f "{{ root_directory }}/docker-compose.grafana.yml" up -d
+  command: docker-compose -f "{{ root_directory }}/docker-compose.elastic.yml" up -d

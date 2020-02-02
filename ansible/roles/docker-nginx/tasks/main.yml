@@ -13,7 +13,7 @@
   become: yes
 - name: Copy configs
   copy:
-    src: ./files/config
+    src: ./files/config/
     dest: "{{ config_directory }}"
   become: yes
 - name: Pull latest images

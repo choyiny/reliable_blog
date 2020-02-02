@@ -9,10 +9,10 @@ services:
       - 80:80
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
-      - ./config/nginx/vhost:/etc/nginx/vhost.d
-      - ./config/nginx/html:/usr/share/nginx/html
-      - ./config/nginx/certs:/etc/nginx/certs:ro
-      - ./config/nginx/certs:/etc/nginx/dhparam
+      - ./config/vhost:/etc/nginx/vhost.d
+      - ./config/html:/usr/share/nginx/html
+      - ./config/certs:/etc/nginx/certs:ro
+      - ./config/certs:/etc/nginx/dhparam
     labels:
       - "com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy"
     environment:
@@ -26,9 +26,9 @@ services:
     depends_on:
       - nginx-proxy
     volumes:
-      - ./config/nginx/vhost:/etc/nginx/vhost.d
-      - ./config/nginx/html:/usr/share/nginx/html
-      - ./config/nginx/certs:/etc/nginx/certs:rw
+      - ./config/vhost:/etc/nginx/vhost.d
+      - ./config/html:/usr/share/nginx/html
+      - ./config/certs:/etc/nginx/certs:rw
       - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
       - web

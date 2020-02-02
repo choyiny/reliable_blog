@@ -1,12 +1,19 @@
 ---
+- name: Create Docker folders
+  file:
+    path: "{{ root_directory }}"
+    owner: root
+    group: docker
+    state: directory
+    mode: 0755
 - name: Copy compose file
   template:
-    src: ./files/docker-compose.elastic.yml.j2
-    dest: /opt/reliable/docker/docker-compose.elastic.yml
+    src: ./templates/docker-compose.apm.yml.j2
+    dest: "{{ root_directory }}/docker-compose.apm.yml"
   become: yes
 - name: Copy configs
   copy:
-    src: ./files/config
+    src: ./files/config/
     dest: "{{ config_directory }}"
   become: yes
 - name: Pull latest images

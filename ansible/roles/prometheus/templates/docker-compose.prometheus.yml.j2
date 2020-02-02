@@ -7,12 +7,16 @@ services:
       - LETSENCRYPT_HOST=prom.{{ host_name }}
     volumes:
       - prometheus-storage:/prometheus
-      - ./config/prometheus:/etc/prometheus
+      - ./config/:/etc/prometheus
     networks:
+      - backend-network
       - web
 volumes:
   prometheus-storage:
 networks:
+  backend-network:
+    external:
+      name: backend-network
   web:
     external:
       name: web-network

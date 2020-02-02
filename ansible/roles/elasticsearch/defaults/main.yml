@@ -1,2 +1,2 @@
-config_directory: /opt/reliable/docker/elastic/config
+config_directory: /opt/reliable/docker/elastic/config/
 root_directory: /opt/reliable/docker/elastic
