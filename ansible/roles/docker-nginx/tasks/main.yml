@@ -1,0 +1,32 @@
+---
+- name: Create Docker folders
+  file:
+    path: "{{ item }}"
+    owner: root
+    group: docker
+    state: directory
+    mode: 0755
+  loop:
+    - "{{ root_directory }}"
+    - "{{ config_directory }}"
+    - "{{ config_directory }}/vhost"
+    - "{{ config_directory }}/certs"
+    - "{{ config_directory }}/html"
+- name: Copy compose file
+  template:
+    src: ./templates/docker-compose.nginx.yml.j2
+    dest: "{{ root_directory }}/docker-compose.nginx.yml"
+  become: yes
+- name: Copy configs
+  copy:
+    src: ./files/config/
+    dest: "{{ config_directory }}"
+  become: yes
+- name: Pull latest images
+  command: docker-compose --log-level ERROR -f "{{ root_directory }}/docker-compose.nginx.yml" pull
+- name: Deploy services to Stack
+  command: docker --log-level error stack deploy -c "{{ root_directory }}/docker-compose.nginx.yml" nginx
+  when: not deploy_with_compose
+- name: Deploy services to compose
+  command: docker-compose -f "{{ root_directory }}/docker-compose.nginx.yml" up -d
+  when: deploy_with_compose

@@ -1,0 +1,15 @@
+version: '3.7'
+services:
+  heartbeat:
+    image: docker.elastic.co/beats/heartbeat:7.5.2
+    networks:
+      - web
+    volumes:
+      - ./config/heartbeat.yml:/usr/share/heartbeat/heartbeat.yml:ro
+    environment:
+      - setup.kibana.host=https://kibana.deployingreliable.software
+      - output.elasticsearch.hosts=["https://elastic.deployingreliable.software"]
+networks:
+  web:
+    external:
+      name: web-network

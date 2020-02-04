@@ -1,0 +1,30 @@
+---
+- name: Create Docker folders
+  file:
+    path: "{{ root_directory }}"
+    owner: root
+    group: docker
+    state: directory
+    mode: 0755
+- name: Copy compose file
+  template:
+    src: ./templates/docker-compose.apm.yml.j2
+    dest: "{{ root_directory }}/docker-compose.apm.yml"
+  become: yes
+- name: Copy configs
+  copy:
+    src: ./files/config/
+    dest: "{{ config_directory }}"
+  become: yes
+- name: Pull latest images
+<<<<<<< Updated upstream
+  command: docker-compose --log-level ERROR -f "{{ root_directory }}/docker-compose.apm.yml" pull 
+- name: Deploy services
+  command: docker --log-level error stack deploy -c "{{ root_directory }}/docker-compose.apm.yml" apm
+=======
+  command: docker-compose -f "{{ root_directory }}/docker-compose.apm.yml" pull
+- name: Take down compose
+  command: docker-compose -f "{{ root_directory }}/docker-compose.apm.yml" down
+- name: Deploy APM server
+  command: docker --log-level ERROR stack deploy -c "{{ root_directory }}/docker-compose.apm.yml" apm
+>>>>>>> Stashed changes

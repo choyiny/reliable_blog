@@ -1,0 +1,2 @@
+config_directory: /opt/reliable/docker/heartbeat/config
+root_directory: /opt/reliable/docker/heartbeat

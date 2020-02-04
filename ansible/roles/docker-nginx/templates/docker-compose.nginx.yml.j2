@@ -1,0 +1,45 @@
+version: '3.7'
+services:
+  nginx-proxy:
+    container_name: nginx-proxy
+    image: jwilder/nginx-proxy:alpine
+    restart: always
+    ports:
+      - 443:443
+      - 80:80
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./config/vhost:/etc/nginx/vhost.d
+      - ./config/html:/usr/share/nginx/html
+      - ./config/certs:/etc/nginx/certs:ro
+      - ./config/certs:/etc/nginx/dhparam
+    labels:
+      - "com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy"
+    environment:
+      - DEFAULT_HOST={{ host_name }}
+    networks:
+      - web
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+  letsencrypt:
+    container_name: nginx-proxy-lets-encrypt
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    restart: always
+    depends_on:
+      - nginx-proxy
+    volumes:
+      - ./config/vhost:/etc/nginx/vhost.d
+      - ./config/html:/usr/share/nginx/html
+      - ./config/certs:/etc/nginx/certs:rw
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - web
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+networks:
+  web:
+    name: web-network
