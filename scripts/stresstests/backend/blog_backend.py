@@ -1,3 +1,5 @@
+from json import JSONDecodeError
+
 from locust import HttpLocust, TaskSet
 
 
@@ -16,10 +18,17 @@ class ReliableBlogBackendUserBehavior(TaskSet):
         return h
 
     def login(self, email, password):
-        res_json = self.client.post('/auth', {'email': email, 'password': password}).json()
+        with self.client.post('/authenticate', {'email': email, 'password': password}, catch_response=True) as res:
+            try:
+                res_json = res.json()
+            except JSONDecodeError:
+                res.failure(res.content)
 
-        if res_json.get('auth_token'):
-            self.AUTH_TOKEN = res_json['auth_token']
+            if res.status_code != 200:
+                res.success()
+
+            if res_json.get('auth_token'):
+                self.AUTH_TOKEN = res_json['auth_token']
 
 
 class FlowUserLocust(HttpLocust):

@@ -1,15 +1,24 @@
 ---
+- name: Create Docker folders
+  file:
+    path: "{{ root_directory }}"
+    owner: root
+    group: docker
+    state: directory
+    mode: 0755
 - name: Copy compose file
   template:
     src: docker-compose.kibana.yml.j2
-    dest: /opt/reliable/docker/docker-compose.kibana.yml
+    dest: "{{ root_directory }}/docker-compose.kibana.yml"
   become: yes
 - name: Copy configs
   copy:
-    src: ./roles/shared-files/config
-    dest: /opt/reliable/docker
+    src: ./files/config/
+    dest: "{{ config_directory }}"
   become: yes
 - name: Pull latest images
-  command: docker-compose --log-level ERROR -f "{{ root_directory }}/docker-compose.kibana.yml" pull
-- name: Deploy services
-  command: docker --log-level error stack deploy -c "{{ root_directory }}/docker-compose.kibana.yml" kibana
+  command: docker-compose -f "{{ root_directory }}/docker-compose.kibana.yml" pull
+- name: Take down compose
+  command: docker-compose -f "{{ root_directory }}/docker-compose.kibana.yml" down
+- name: Run Compose for Kibana
+  command: docker-compose -f "{{ root_directory }}/docker-compose.kibana.yml" up -d

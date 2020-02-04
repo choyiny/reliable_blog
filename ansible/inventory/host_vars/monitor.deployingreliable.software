@@ -1,6 +1,6 @@
-host_name: monitor.deployingreliable.software
+host_name: deployingreliable.software
 grafana:
-  root_url: https://monitor.deployingreliable.software/
+  root_url: https://grafana.deployingreliable.software/
   grafana_admin_password: !vault |
     $ANSIBLE_VAULT;1.1;AES256
     36333731656136653461356462333234326163306562336266623265333532643466316530636365
@@ -20,4 +20,4 @@ grafana:
     username: liu.jordan.com@gmail.com
     host: smtp.gmail.com:587
     from_address: liu.jordan.com@gmai.com
-    from_name: Joran Liu
+    from_name: Jordan Liu

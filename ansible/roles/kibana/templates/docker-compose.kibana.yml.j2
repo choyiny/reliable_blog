@@ -8,7 +8,7 @@ services:
     networks:
       - web
     volumes:
-      - ./config/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml
+      - ./config/kibana.yml:/usr/share/kibana/config/kibana.yml
 networks:
   web:
     external:

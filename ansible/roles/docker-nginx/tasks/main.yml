@@ -23,6 +23,10 @@
     dest: "{{ config_directory }}"
   become: yes
 - name: Pull latest images
-  command: docker-compose --log-level ERROR -f "{{ root_directory }}/docker-compose.nginx.yml" pull 
-- name: Deploy services
+  command: docker-compose --log-level ERROR -f "{{ root_directory }}/docker-compose.nginx.yml" pull
+- name: Deploy services to Stack
   command: docker --log-level error stack deploy -c "{{ root_directory }}/docker-compose.nginx.yml" nginx
+  when: not deploy_with_compose
+- name: Deploy services to compose
+  command: docker-compose -f "{{ root_directory }}/docker-compose.nginx.yml" up -d
+  when: deploy_with_compose

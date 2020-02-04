@@ -3,8 +3,6 @@
   vars:
     - deploy_with_compose: true
   roles:
-    - common
-    - docker
     - docker-nginx
     - grafana
     - kibana

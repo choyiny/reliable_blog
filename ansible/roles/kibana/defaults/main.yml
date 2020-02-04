@@ -1,0 +1,2 @@
+config_directory: /opt/reliable/docker/kibana/config
+root_directory: /opt/reliable/docker/kibana

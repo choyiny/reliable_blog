@@ -31,16 +31,6 @@ services:
       placement:
         constraints:
           - node.role == manager
-  # heartbeat:
-  #   image: docker.elastic.co/beats/heartbeat:7.5.2
-  #   networks:
-  #     - web
-  #     - elastic
-  #   volumes:
-  #     - ./config/heartbeat/heartbeat.yml:/usr/share/heartbeat/heartbeat.yml:ro
-  #   environment:
-  #     - setup.kibana.host=kibana:5601
-  #     - output.elasticsearch.hosts=["elasticsearch:9200"]
   # filebeat:
   #   image: docker.elastic.co/beats/filebeat:7.5.2
   #   user: '0'
