@@ -3,7 +3,7 @@
   vars:
     - deploy_with_compose: true
   roles:
-    - docker-nginx
-    - grafana
-    - kibana
+    # - docker-nginx
+    # - grafana
+    # - kibana
     - heartbeat

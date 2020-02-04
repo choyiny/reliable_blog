@@ -4,9 +4,15 @@ heartbeat.monitors:
   urls:
     - https://deployingreliable.software
     - https://backend.deployingreliable.software/posts
-    - https://monitor.deployingreliable.software
+    - https://grafana.deployingreliable.software
   timeout: 3s
   check.response.status: 200
+- type: http
+  schedule: '@every 30s'
+  urls:
+    - https://elastic.deployingreliable.software
+  timeout: 3s
+  check.response.status: 401
 
 processors:
 - add_cloud_metadata: ~
