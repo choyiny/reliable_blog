@@ -16,7 +16,7 @@ services:
     deploy:
       placement:
         constraints:
-          - node.role == manage
+          - node.role == manager
 volumes:
   elasticsearch-storage:
 networks:

@@ -1,22 +1,15 @@
 ---
 - name: Copy compose file
   template:
-    src: ./files/docker-compose.grafana.yml.j2
-    dest: /opt/reliable/docker/docker-compose.grafana.yml
+    src: docker-compose.kibana.yml.j2
+    dest: /opt/reliable/docker/docker-compose.kibana.yml
   become: yes
 - name: Copy configs
   copy:
     src: ./roles/shared-files/config
     dest: /opt/reliable/docker
   become: yes
-- name: Copy grafana.ini template
-  template:
-    src: grafana.ini.j2
-    dest: /opt/reliable/docker/config/grafana/grafana.ini
-  become: yes
 - name: Pull latest images
-  command: docker-compose -f "{{ root_directory }}/docker-compose.grafana.yml" pull
-- name: Take down compose
-  command: docker-compose -f "{{ root_directory }}/docker-compose.grafana.yml" down
-- name: Run Compose for Docker nginx
-  command: docker-compose -f "{{ root_directory }}/docker-compose.grafana.yml" up -d
+  command: docker-compose --log-level ERROR -f "{{ root_directory }}/docker-compose.kibana.yml" pull
+- name: Deploy services
+  command: docker --log-level error stack deploy -c "{{ root_directory }}/docker-compose.kibana.yml" kibana

@@ -1,15 +1,27 @@
 ---
+- name: Create Docker daemon folder
+  file:
+    path: "{{ root_directory }}"
+    owner: root
+    group: docker
+    state: directory
+    mode: 0755
+  become: yes
+
 - name: Copy compose file
   template:
     src: ./templates/docker-compose.elastic.yml.j2
     dest: "{{ root_directory }}/docker-compose.elastic.yml"
   become: yes
+
 - name: Copy configs
   copy:
     src: ./files/config/
     dest: "{{ config_directory }}"
   become: yes
+
 - name: Pull latest images
   command: docker-compose --log-level ERROR -f "{{ root_directory }}/docker-compose.elastic.yml" pull
+  
 - name: Deploy services
   command: docker --log-level error stack deploy -c "{{ root_directory }}/docker-compose.elastic.yml" elasticsearch

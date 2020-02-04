@@ -1,25 +1,27 @@
----
-- name: Setup pre-requisites for cluster
-  hosts: 
-    - docker-cluster-1
-  roles:
-    - common
-    - docker
-  become: yes
+# ---
+# - name: Setup pre-requisites for cluster
+#   hosts: 
+#     - docker-cluster-1
+#   roles:
+#     - common
+#     - docker
+#   become: yes
 
-- name: Initialize docker swarm
-  hosts: docker-masters
-  roles:
-    - docker-swarm-init
+# - name: Initialize docker swarm
+#   hosts: docker-masters
+#   roles:
+#     - docker-swarm-init
 
-- name: Add workers to the swarm
-  hosts: docker-workers
-  roles:
-    - docker-swarm-add-worker
+# - name: Add workers to the swarm
+#   hosts: docker-workers
+#   roles:
+#     - docker-swarm-add-worker
 
 - name: DEPLOY EVERYTHING
   hosts: deployingreliable.software
   roles:
     - docker-nginx
     - reliable_blog
+    - elasticsearch
+    - apm-server
   become: yes

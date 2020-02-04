@@ -1,11 +1,17 @@
 ---
 - name: Create Docker folders
   file:
-    path: "{{ root_directory }}"
+    path: "{{ item }}"
     owner: root
     group: docker
     state: directory
     mode: 0755
+  loop:
+    - "{{ root_directory }}"
+    - "{{ config_directory }}"
+    - "{{ config_directory }}/vhost"
+    - "{{ config_directory }}/certs"
+    - "{{ config_directory }}/html"
 - name: Copy compose file
   template:
     src: ./templates/docker-compose.nginx.yml.j2

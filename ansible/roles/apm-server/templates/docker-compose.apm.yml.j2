@@ -8,4 +8,5 @@ services:
       - ./config/apm-server.yml:/usr/share/apm-server/apm-server.yml:ro
 networks:
   backend-network:
-    name: backend-network
+    external:
+      name: backend-network
