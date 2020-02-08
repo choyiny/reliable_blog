@@ -4,17 +4,15 @@ heartbeat.monitors:
   urls:
     - https://deployingreliable.software
     - https://backend.deployingreliable.software/posts
-    - https://monitor.deployingreliable.software
-    - http://elasticsearch:9200
-    - http://kibana:5601
+    - https://grafana.deployingreliable.software
   timeout: 3s
   check.response.status: 200
-
-- type: icmp
-  schedule: '@every 5s'
-  hosts:
-    - elasticsearch
-    - kibana
+- type: http
+  schedule: '@every 30s'
+  urls:
+    - https://elastic.deployingreliable.software
+  timeout: 3s
+  check.response.status: 401
 
 processors:
 - add_cloud_metadata: ~

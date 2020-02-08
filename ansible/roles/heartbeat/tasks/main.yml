@@ -1,0 +1,24 @@
+---
+- name: Create Docker folders
+  file:
+    path: "{{ root_directory }}"
+    owner: root
+    group: docker
+    state: directory
+    mode: 0755
+- name: Copy compose file
+  copy:
+    src: docker-compose.heartbeat.yml
+    dest: "{{ root_directory }}/docker-compose.heartbeat.yml"
+  become: yes
+- name: Copy configs
+  copy:
+    src: ./files/config/
+    dest: "{{ config_directory }}"
+  become: yes
+- name: Pull latest images
+  command: docker-compose -f "{{ root_directory }}/docker-compose.heartbeat.yml" pull
+- name: Take down compose
+  command: docker-compose -f "{{ root_directory }}/docker-compose.heartbeat.yml" down
+- name: Run Compose for Heartbeat
+  command: docker-compose -f "{{ root_directory }}/docker-compose.heartbeat.yml" up -d

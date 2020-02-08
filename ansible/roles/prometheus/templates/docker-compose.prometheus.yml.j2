@@ -1,0 +1,26 @@
+version: '3.7'
+services:
+  prometheus:
+    image: prom/prometheus
+    environment:
+      - VIRTUAL_HOST=prom.{{ host_name }}
+      - LETSENCRYPT_HOST=prom.{{ host_name }}
+    volumes:
+      - prometheus-storage:/prometheus
+      - ./config/:/etc/prometheus
+    networks:
+      - backend-network
+      - web
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+volumes:
+  prometheus-storage:
+networks:
+  backend-network:
+    external:
+      name: backend-network
+  web:
+    external:
+      name: web-network

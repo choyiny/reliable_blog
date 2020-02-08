@@ -5,4 +5,8 @@
   roles:
     - common
     - docker
+    - docker-nginx
+    - apm-server
     - reliable_blog
+    - prometheus
+    - elasticsearch

@@ -1,0 +1,20 @@
+version: '3.7'
+services:
+  grafana:
+    image: grafana/grafana:6.5.3
+    networks:
+      - web
+    environment:
+      - VIRTUAL_HOST=grafana.{{ host_name }}
+      - LETSENCRYPT_HOST=grafana.{{ host_name }}
+      - GF_SECURITY_ADMIN_PASSWORD={{ grafana.grafana_admin_password }}
+      - GF_SERVER_ROOT_URL={{ grafana.root_url }}
+    volumes:
+      - grafana-storage:/var/lib/grafana
+      - ./config/grafana.ini:/etc/grafana/grafana.ini
+volumes:
+  grafana-storage:
+networks:
+  web:
+    external:
+      name: web-network

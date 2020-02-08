@@ -1,0 +1,24 @@
+---
+- name: Create Docker folders
+  file:
+    path: "{{ root_directory }}"
+    owner: root
+    group: docker
+    state: directory
+    mode: 0755
+- name: Copy compose file
+  template:
+    src: docker-compose.grafana.yml.j2
+    dest: "{{ root_directory }}/docker-compose.grafana.yml"
+  become: yes
+- name: Copy grafana.ini template
+  template:
+    src: grafana.ini.j2
+    dest: "{{ config_directory }}/grafana.ini"
+  become: yes
+- name: Pull latest images
+  command: docker-compose -f "{{ root_directory }}/docker-compose.grafana.yml" pull
+- name: Take down compose
+  command: docker-compose -f "{{ root_directory }}/docker-compose.grafana.yml" down
+- name: Run Compose for Grafana
+  command: docker-compose -f "{{ root_directory }}/docker-compose.grafana.yml" up -d

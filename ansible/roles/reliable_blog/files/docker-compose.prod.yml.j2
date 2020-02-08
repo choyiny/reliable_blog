@@ -1,32 +1,10 @@
 version: '3.7'
 services:
-  nginx-proxy:
-    container_name: nginx-proxy
-    image: jwilder/nginx-proxy:alpine
-    restart: always
-    ports:
-      - 443:443
-      - 80:80
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-      - ./config/nginx/vhost:/etc/nginx/vhost.d
-      - ./config/nginx/html:/usr/share/nginx/html
-      - ./config/nginx/certs:/etc/nginx/certs:ro
-      - ./config/nginx/certs:/etc/nginx/dhparam
-      - ./config/nginx/nginx.tmpl:/app/nginx.tmpl
-      - ./config/nginx/htpasswd:/etc/nginx/htpasswd/prom.{{ host_name }}
-    labels:
-      - "com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy"
-    environment:
-      - DEFAULT_HOST={{ host_name }}
-    networks:
-      - web
   backend:
     image: {{ backend_image }}
     networks:
       - web
-    depends_on:
-      - db
+      - backend-network
     environment:
       - VIRTUAL_HOST=backend.{{ host_name }}
       - LETSENCRYPT_HOST=backend.{{ host_name }}
@@ -55,10 +33,11 @@ services:
           - node.role == manager
 networks:
   web:
-    driver: bridge
-  elastic:
-    driver: bridge
+    external:
+      name: web-network
+  backend-network:
+    external:
+      name: backend-network
+
 volumes:
-  prometheus-storage:
   postgres-storage:
-  elasticsearch-storage:

@@ -42,6 +42,15 @@
   when : item not in ansible_facts.packages
   become: yes
 
+- name: Create Docker daemon folder
+  file:
+    path: "/etc/docker"
+    owner: root
+    group: docker
+    state: directory
+    mode: 0755
+  become: yes
+  
 - name: Copy docker daemon.json
   copy:
     src: daemon.json

@@ -1,3 +1,17 @@
 [docker]
 deployingreliable.software
 monitor.deployingreliable.software
+
+[docker:children]
+docker-cluster-1
+
+[docker-masters]
+docker1.deployingreliable.software
+
+[docker-workers]
+docker2.deployingreliable.software
+
+[docker-cluster-1]
+docker1.deployingreliable.software
+docker2.deployingreliable.software
+

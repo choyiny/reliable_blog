@@ -1,0 +1,23 @@
+heartbeat.monitors:
+- type: http
+  schedule: '@every 30s'
+  urls:
+    - https://deployingreliable.software
+    - https://backend.deployingreliable.software/posts
+    - https://grafana.deployingreliable.software
+  timeout: 3s
+  check.response.status: 200
+- type: http
+  schedule: '@every 30s'
+  urls:
+    - https://elastic.deployingreliable.software
+  timeout: 3s
+  check.response.status: 401
+
+processors:
+- add_cloud_metadata: ~
+
+output.elasticsearch:
+  hosts: '${ELASTICSEARCH_HOSTS:https://elastic.deployingreliable.software:443}'
+  username: '${ELASTICSEARCH_USERNAME:elastic}'
+  password: '${ELASTICSEARCH_PASSWORD:temppass}'

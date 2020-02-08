@@ -1,0 +1,11 @@
+xpack:
+  security:
+    enabled: true
+    audit:
+      enabled: true
+    authc:
+      api_key:
+        enabled: true
+node.name: elasticsearch
+network.host: 0.0.0.0
+discovery.type: single-node

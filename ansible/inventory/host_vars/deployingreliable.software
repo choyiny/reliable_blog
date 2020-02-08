@@ -1,5 +1,5 @@
 host_name: deployingreliable.software
-backend_image: docker.pkg.github.com/choyiny/reliable_blog/reliable-blog-backend:f6a6ad858618
+backend_image: docker.pkg.github.com/choyiny/reliable_blog/reliable-blog-backend:063ceb3f1e7b
 frontend_image: docker.pkg.github.com/choyiny/reliable_blog/reliable-blog-frontend:2d750c1a9753
 backend:
   secret_key_base: !vault |

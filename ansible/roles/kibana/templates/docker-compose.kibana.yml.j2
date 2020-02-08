@@ -1,0 +1,15 @@
+version: '3.7'
+services:
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.5.2
+    environment:
+      - VIRTUAL_HOST=kibana.{{ host_name }}
+      - LETSENCRYPT_HOST=kibana.{{ host_name }}
+    networks:
+      - web
+    volumes:
+      - ./config/kibana.yml:/usr/share/kibana/config/kibana.yml
+networks:
+  web:
+    external:
+      name: web-network

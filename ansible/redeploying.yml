@@ -4,6 +4,12 @@
     - deploy_with_compose: false
   roles:
     - docker-nginx
+<<<<<<< HEAD
     - reliable_blog
     - apm-server
+=======
+    - apm-server
+    - reliable_blog
+    - prometheus
+>>>>>>> 8fc2263b289c39e4215dbdbdd3a2c13a2a113a68
     - elasticsearch

@@ -1,0 +1,28 @@
+version: '3.7'
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.5.2
+    volumes:
+      - elasticsearch-storage:/usr/share/elasticsearch/data
+      - ./config/jvm.options:/usr/share/elasticsearch/config/jvm.options
+      - ./config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+    networks:
+      - web
+      - backend-network
+    environment:
+      - VIRTUAL_HOST=elastic.{{ host_name }}
+      - LETSENCRYPT_HOST=elastic.{{ host_name }}
+      - VIRTUAL_PORT=9200
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+volumes:
+  elasticsearch-storage:
+networks:
+  backend-network:
+    external:
+      name: backend-network
+  web:
+    external:
+      name: web-network

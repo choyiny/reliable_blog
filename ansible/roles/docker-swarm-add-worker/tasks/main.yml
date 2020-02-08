@@ -1,0 +1,7 @@
+---
+- name: Add node to swarm
+  docker_swarm:
+    state: join
+    advertise_addr: "{{ ip.external }}"
+    join_token: "{{ hostvars['docker1.deployingreliable.software']['swarm_info']['swarm_facts']['JoinTokens']['Worker']}}"
+    remote_addrs: "{{ hostvars['docker1.deployingreliable.software']['ip']['internal'] }}"

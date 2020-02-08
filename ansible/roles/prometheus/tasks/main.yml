@@ -1,0 +1,15 @@
+---
+- name: Copy compose file
+  template:
+    src: ./templates/docker-compose.prometheus.yml.j2
+    dest: "{{ root_directory }}/docker-compose.prometheus.yml"
+  become: yes
+- name: Copy configs
+  copy:
+    src: ./files/config/
+    dest: "{{ config_directory }}"
+  become: yes
+- name: Pull latest images
+  command: docker-compose --log-level ERROR -f "{{ root_directory }}/docker-compose.prometheus.yml" pull
+- name: Deploy services
+  command: docker --log-level error stack deploy -c "{{ root_directory }}/docker-compose.prometheus.yml" prometheus
