@@ -1,0 +1,13 @@
+version: '3.7'
+services:
+  frontend:
+    image: {{ frontend_image }}
+    networks:
+      - web
+    environment:
+      - VIRTUAL_HOST={{ host_name }}
+      - LETSENCRYPT_HOST={{ host_name }}
+networks:
+  web:
+    external:
+      name: web-network

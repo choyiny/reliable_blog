@@ -1,0 +1,5 @@
+name: 'Deploy Reliable Blog Frontend'
+description: 'Runs an Ansible playbook to deploy the reliable blog frontend'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'

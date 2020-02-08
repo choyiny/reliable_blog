@@ -3,6 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {ApiService} from '@root/services/api.service';
 import {Post} from '@root/models/post';
 import {PostInterface} from '@root/interfaces/post-interface';
+import {CurrentUserService} from '@root/services/current-user.service';
 
 @Component({
   selector: 'app-blog',
@@ -15,7 +16,8 @@ export class BlogComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private apiService: ApiService
+    private apiService: ApiService,
+    public currentUser: CurrentUserService
   ) {}
 
   ngOnInit() {

@@ -3,10 +3,8 @@
   vars:
     - deploy_with_compose: false
   roles:
-    - common
-    - docker
     - docker-nginx
-    - apm-server
     - reliable_blog
-    - prometheus
+    - reliable_blog_frontend
     - elasticsearch
+    - apm-server

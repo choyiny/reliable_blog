@@ -5,7 +5,7 @@
   </div>
   <div class="content col-12">
     <quill-view [content]="post.content" format="text"></quill-view>
-    <a class="edit-content" routerLink="edit">Edit</a>
+    <a *ngIf="currentUser.token" class="edit-content" routerLink="edit">Edit</a>
   </div>
 </div>
 

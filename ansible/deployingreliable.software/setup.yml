@@ -1,0 +1,13 @@
+---
+- hosts: deployingreliable.software
+  vars:
+    - deploy_with_compose: false
+  roles:
+    - common
+    - docker
+    - docker-nginx
+    - apm-server
+    - reliable_blog
+    - reliable_blog_frontend
+    - prometheus
+    - elasticsearch

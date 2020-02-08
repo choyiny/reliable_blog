@@ -3,7 +3,4 @@
   vars:
     - deploy_with_compose: false
   roles:
-    - docker-nginx
-    - reliable_blog
-    - elasticsearch
-    - apm-server
+    - reliable_blog_frontend
