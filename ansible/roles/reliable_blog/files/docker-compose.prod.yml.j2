@@ -48,96 +48,11 @@ services:
       POSTGRES_PASSWORD: blog
       POSTGRES_USER: blog
     networks:
-      - web
-  letsencrypt:
-    container_name: nginx-proxy-lets-encrypt
-    image: jrcs/letsencrypt-nginx-proxy-companion
-    restart: always
-    depends_on:
-      - nginx-proxy
-    volumes:
-      - ./config/nginx/vhost:/etc/nginx/vhost.d
-      - ./config/nginx/html:/usr/share/nginx/html
-      - ./config/nginx/certs:/etc/nginx/certs:rw
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-    networks:
-      - web
-  prometheus:
-    image: prom/prometheus
-    environment:
-      - VIRTUAL_HOST=prom.{{ host_name }}
-      - LETSENCRYPT_HOST=prom.{{ host_name }}
-    volumes:
-      - prometheus-storage:/prometheus
-      - ./config/prometheus:/etc/prometheus
-    networks:
-      - web
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.5.2
-    volumes:
-      - elasticsearch-storage:/usr/share/elasticsearch/data
-      - ./config/elasticsearch/jvm.options:/usr/share/elasticsearch/config/jvm.options
-      - ./config/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
-    networks:
-      - elastic
-      - web
-    environment:
-      - VIRTUAL_HOST=elastic.{{ host_name }}
-      - LETSENCRYPT_HOST=elastic.{{ host_name }}
-      - VIRTUAL_PORT=9200
-  apm-server:
-    image: docker.elastic.co/apm/apm-server:7.5.2
-    depends_on:
-      - elasticsearch
-    networks:
-      - elastic
-      - web
-    volumes:
-      - ./config/apm/apm-server.yml:/usr/share/apm-server/apm-server.yml:ro
-  kibana:
-    depends_on:
-      - elasticsearch
-      - apm-server
-    image: docker.elastic.co/kibana/kibana:7.5.2
-    environment:
-      - VIRTUAL_HOST=kibana.{{ host_name }}
-      - LETSENCRYPT_HOST=kibana.{{ host_name }}
-    networks:
-      - web
-      - elastic
-    volumes:
-      - ./config/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml
-  heartbeat:
-    image: docker.elastic.co/beats/heartbeat:7.5.2
-    networks:
-      - web
-      - elastic
-    volumes:
-      - ./config/heartbeat/heartbeat.yml:/usr/share/heartbeat/heartbeat.yml:ro
-    environment:
-      - setup.kibana.host=kibana:5601
-      - output.elasticsearch.hosts=["elasticsearch:9200"]
-  filebeat:
-    image: docker.elastic.co/beats/filebeat:7.5.2
-    user: '0'
-    depends_on:
-      - elasticsearch
-    volumes:
-      - ./config/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
-      - /var/lib/docker/containers:/var/lib/docker/containers:ro
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /var/log:/var/log
-    networks:
-      - elastic
-  logstash:
-    image: docker.elastic.co/logstash/logstash:7.5.2
-    volumes:
-      - ./config/logstash/logstash.yml:/usr/share/logstash/config/logstash.yml
-      - ./config/logstash/pipeline/:/usr/share/logstash/pipeline/
-    expose:
-      - 5044
-    networks:
-      - elastic
+      - backend-network
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
 networks:
   web:
     driver: bridge

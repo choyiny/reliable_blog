@@ -1,0 +1,9 @@
+---
+- hosts: monitor.deployingreliable.software
+  vars:
+    - deploy_with_compose: true
+  roles:
+    - docker-nginx
+    - grafana
+    - kibana
+    - heartbeat
