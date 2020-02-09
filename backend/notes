@@ -1,9 +1,0 @@
-Testing =====
-using factory_bot and RSpec
-  https://semaphoreci.com/blog/2014/01/14/rails-testing-antipatterns-fixtures-and-factories.html
-  https://semaphoreci.com/community/tutorials/working-effectively-with-data-factories-using-factorygirl
-  https://blog.eq8.eu/article/junior-developer-set-up-rails-with-rspec-factorybot-database-cleaner.html
-cleaning up after tests
-  https://github.com/carrierwaveuploader/carrierwave/wiki/how-to:-cleanup-after-your-rspec-tests
-  https://github.com/DatabaseCleaner/database_cleaner
-===== Testing

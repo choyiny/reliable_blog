@@ -9,13 +9,6 @@ services:
       - VIRTUAL_HOST=backend.{{ host_name }}
       - LETSENCRYPT_HOST=backend.{{ host_name }}
       - SECRET_KEY_BASE={{ backend.secret_key_base }}
-  frontend:
-    image: {{ frontend_image }}
-    networks:
-      - web
-    environment:
-      - VIRTUAL_HOST={{ host_name }}
-      - LETSENCRYPT_HOST={{ host_name }}
   db:
     image: postgres:12
     volumes:

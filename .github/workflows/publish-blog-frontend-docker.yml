@@ -14,8 +14,6 @@ jobs:
     - name: Copy Repo Files
       uses: actions/checkout@master
 
-     #This Action Emits 2 Variables, IMAGE_SHA_NAME and IMAGE_URL
-     #which you can reference in subsequent steps
     - name: Publish Docker Image to GPR
       uses: machine-learning-apps/gpr-docker-publish@master
       id: docker
@@ -27,12 +25,10 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    # This second step is illustrative and shows how to reference the
-    # output variables.  This is completely optional.
-    - name: Show outputs of previous step
-      run: |
-        echo "The name:tag of the Docker Image is: $VAR1"
-        echo "The docker image is hosted at $VAR2"
+    - name: Deploy frontend
+      uses: ./.github/actions/deploy
       env:
-        VAR1: ${{ steps.docker.outputs.IMAGE_SHA_NAME }}
-        VAR2: ${{ steps.docker.outputs.IMAGE_URL }}
+        IMAGE_URL: ${{ steps.docker.outputs.IMAGE_SHA_NAME }}
+        DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+        VAULT_PASS: ${{ secrets.VAULT_PASS }}
+        DEPLOY_FILE: 'redeploy-frontend.yml'

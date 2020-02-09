@@ -1,0 +1,6 @@
+---
+- hosts: deployingreliable.software
+  vars:
+    - deploy_with_compose: false
+  roles:
+    - reliable_blog

@@ -25,3 +25,5 @@
   command: docker-compose --log-level error -f "{{ root_directory }}/docker-compose.yml" pull
 - name: Deploy services
   command: docker --log-level ERROR stack deploy -c "{{ root_directory }}/docker-compose.yml" blog
+# - name: Run migrations
+#   command: docker --log-level ERROR exec $(docker ps -q -f name=blog_rails | head -n 1) rails db:migrate

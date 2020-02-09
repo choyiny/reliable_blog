@@ -23,6 +23,14 @@
       group:
         name: ansible
         state: present
+    # ansible group should have passwordless access, should only be accessible to
+    - name: Allow 'ansible' group to have passwordless sudo
+      lineinfile:
+        path: /etc/sudoers
+        state: present
+        regexp: '^%ansible'
+        line: '%ansible ALL=(ALL) NOPASSWD: ALL'
+        validate: '/usr/sbin/visudo -cf %s'
     - name: Create users
       user:
         name: "{{ item.username }}"

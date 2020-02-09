@@ -17,6 +17,8 @@
     dest: "{{ config_directory }}"
   become: yes
 - name: Pull latest images
-  command: docker-compose --log-level ERROR -f "{{ root_directory }}/docker-compose.apm.yml" pull
+  command: docker-compose -f "{{ root_directory }}/docker-compose.apm.yml" pull
+- name: Take down compose
+  command: docker-compose -f "{{ root_directory }}/docker-compose.apm.yml" down
 - name: Deploy APM server
   command: docker --log-level ERROR stack deploy -c "{{ root_directory }}/docker-compose.apm.yml" apm

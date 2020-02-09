@@ -19,7 +19,7 @@
     regexp: '#?PasswordAuthentication (yes|no)'
     replace: 'PasswordAuthentication no'
   become: yes
-  notify: 
+  notify:
     - Restart SSH
 - name: Download node-exporter
   get_url:
@@ -30,7 +30,7 @@
     chdir: /tmp
     cmd: tar -xvf /tmp/node_exporter-0.18.1.linux-amd64.tar.gz
 - name: Move node-exporter to path
-  shell: 
+  shell:
     chdir: /tmp
     cmd: mv node_exporter-0.18.1.linux-amd64/node_exporter /usr/local/bin
   become: yes
