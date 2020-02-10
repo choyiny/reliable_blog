@@ -5,4 +5,4 @@ mkdir ~/.ssh
 echo "$DEPLOY_KEY" > ~/.ssh/id_rsa
 chmod 0600 ~/.ssh/id_rsa
 
-ansible-playbook -i ansible/inventory -u choyiny -b --vault-password-file ~/password.secret ansible/$(echo $DEPLOY_FILE) --extra-vars="frontend_image=$IMAGE_URL"
+ansible-playbook -i ansible/inventory -u choyiny -b --vault-password-file ~/password.secret ansible/$(echo $DEPLOY_FILE) -e "$EXTRA_VARS"
