@@ -28,7 +28,7 @@ jobs:
     - name: Deploy frontend
       uses: ./.github/actions/deploy
       env:
-        IMAGE_URL: ${{ steps.docker.outputs.IMAGE_SHA_NAME }}
+        EXTRA_VARS: frontend_image=${{ steps.docker.outputs.IMAGE_SHA_NAME }}
         DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
         VAULT_PASS: ${{ secrets.VAULT_PASS }}
         DEPLOY_FILE: 'redeploy-frontend.yml'
