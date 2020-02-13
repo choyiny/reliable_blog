@@ -1,3 +1,4 @@
+# https://cert-manager.io/docs/tutorials/acme/ingress/#step-2-deploy-the-nginx-ingress-controller
 apiVersion: v1
 kind: Namespace
 metadata:
