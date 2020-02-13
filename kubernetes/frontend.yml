@@ -1,25 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: web
+  name: reliable-web
   namespace: default
 spec:
   replicas: 4
   selector:
     matchLabels:
-      run: web
+      run: reliable-web
   template:
     metadata:
       labels:
-        run: web
+        run: reliable-web
     spec:
       containers:
       - image: docker.pkg.github.com/choyiny/reliable_blog/reliable-blog-frontend:2d750c1a9753
         imagePullPolicy: IfNotPresent
-        name: web
+        name: reliable-web
         ports:
-        - containerPort: 8080
+        - containerPort: 80
           protocol: TCP
+      imagePullSecrets:
+        - name: github-registry-secret
 
 ---
 apiVersion: networking.k8s.io/v1beta1
@@ -39,20 +41,20 @@ spec:
         paths:
           - path: /
             backend:
-              serviceName: web
-              servicePort: 8080
+              serviceName: reliable-web
+              servicePort: 80
     - host: kube2.deployingreliable.software
       http:
         paths:
           - path: /
             backend:
-              serviceName: web
-              servicePort: 8080
+              serviceName: reliable-web
+              servicePort: 80
     - http:
         paths:
         - backend:
-            serviceName: web
-            servicePort: 8080
+            serviceName: reliable-web
+            servicePort: 80
   tls:
     - hosts:
         - kube1.deployingreliable.software
@@ -65,12 +67,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: web
+  name: reliable-web
   namespace: default
 spec:
   ports:
-  - port: 8080
+  - port: 80
     protocol: TCP
   selector:
-    run: web
-  type: LoadBalancer
+    run: reliable-web
