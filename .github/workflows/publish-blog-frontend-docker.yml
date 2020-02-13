@@ -1,4 +1,4 @@
-name: Publish blog-frontend Docker image to GitHub Package Registry
+name: Frontend Deployed
 on:
   push:
     branches:
@@ -32,3 +32,4 @@ jobs:
         DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
         VAULT_PASS: ${{ secrets.VAULT_PASS }}
         DEPLOY_FILE: 'redeploy-frontend.yml'
+        SSH_USERNAME: choyiny

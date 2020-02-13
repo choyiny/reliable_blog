@@ -1,6 +1,6 @@
 # https://www.elastic.co/guide/en/kibana/7.0/settings.html
 elasticsearch:
-  hosts: https://elastic.deployingreliable.software
+  hosts: http://elasticsearch:9200
   username: kibana
   password: temppass
 server:

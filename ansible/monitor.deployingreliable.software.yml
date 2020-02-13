@@ -6,6 +6,6 @@
     - common
     - docker
     - docker-nginx
-    - grafana
     - kibana
     - heartbeat
+    - elasticsearch

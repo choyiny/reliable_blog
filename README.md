@@ -2,11 +2,16 @@
 A CSCD94 - Computer Science Project with Professor [Thierry Sans](https://github.com/thierrysans).
 
 ## Introduction
-[Our website](https://deployingreliable.software)
 
 An extension to the existing “Programming on the Web” course at the University of Toronto Scarborough. This research project aims to follow the two books by Google, Site Reliability Engineering and Site Reliability Workbook. There are two main objectives:
 - What is the Google way of deploying software used by millions of people?
 - How to maintain high availability while allowing for frequent software updates?
+
+## Services
+- Main Website: https://deployingreliable.software
+- Backend Service: https://backend.deployingreliable.software
+- Kibana Dashboard: https://kibana.deployingreliable.software
+- Elasticsearch: https://elastic.deployingreliable.software
 
 ## Development Setup
 Prerequisites: Docker and Docker Compose installed in your system.
@@ -28,12 +33,14 @@ We try to use a range of technologies in this demo. Here are the list of technol
 - [Github Actions](https://github.com/features/actions): Continuous integration and Deployment
 - [Ansible](https://www.ansible.com/): Playbooks to automate deployment
 - [Docker Swarm](https://docs.docker.com/engine/swarm/): Docker across many hosts
+- [Kubernetes](https://kubernetes.io/): Container orchestration
 
 ### Application Stack
 "To provide a model of how a service would hypothetically be deployed in the Google production environment"[\[2\]](https://landing.google.com/sre/sre-book/chapters/production-environment/#fig_production-environment_life-of-a-request)
 - [Ruby](https://rubyonrails.org/) on Rails: Backend server REST framework
 - [Angular 8](https://angular.io/): Frontend framework
-- [nginx](https://www.nginx.com/): Reverse proxying for applications
+- [PostgreSQL](https://www.postgresql.org/): Relational Database
+- [nginx](https://www.nginx.com/): Reverse proxying for applications (Kubernetes Ingress)
 
 ### Packaging applications
 - [Docker](https://www.docker.com/): Deploy applications cross-platform in a standardized environment
