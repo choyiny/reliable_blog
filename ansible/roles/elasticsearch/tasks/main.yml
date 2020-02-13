@@ -22,6 +22,11 @@
 
 - name: Pull latest images
   command: docker-compose --log-level ERROR -f "{{ root_directory }}/docker-compose.elastic.yml" pull
-  
-- name: Deploy services
+
+- name: Deploy services to docker swarm
   command: docker --log-level error stack deploy -c "{{ root_directory }}/docker-compose.elastic.yml" elasticsearch
+  when: not deploy_with_compose
+
+- name: Deploy services to compose
+  command: docker-compose -f "{{ root_directory }}/docker-compose.elastic.yml" up -d
+  when: deploy_with_compose

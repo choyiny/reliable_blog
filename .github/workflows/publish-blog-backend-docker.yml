@@ -1,4 +1,4 @@
-name: Publish blog-backend Docker image to GitHub Package Registry
+name: Backend Deployed
 on:
   push:
     branches:
@@ -14,8 +14,6 @@ jobs:
     - name: Copy Repo Files
       uses: actions/checkout@master
 
-     #This Action Emits 2 Variables, IMAGE_SHA_NAME and IMAGE_URL
-     #which you can reference in subsequent steps
     - name: Publish Docker Image to GPR
       uses: machine-learning-apps/gpr-docker-publish@master
       id: docker
@@ -34,3 +32,4 @@ jobs:
         DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
         VAULT_PASS: ${{ secrets.VAULT_PASS }}
         DEPLOY_FILE: 'redeploy-backend.yml'
+        SSH_USERNAME: choyiny

@@ -8,11 +8,11 @@ services:
       - ./config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
     networks:
       - web
-      - backend-network
     environment:
       - VIRTUAL_HOST=elastic.{{ host_name }}
       - LETSENCRYPT_HOST=elastic.{{ host_name }}
       - VIRTUAL_PORT=9200
+      - ELASTIC_PASSWORD=temppass
     deploy:
       placement:
         constraints:
@@ -20,9 +20,6 @@ services:
 volumes:
   elasticsearch-storage:
 networks:
-  backend-network:
-    external:
-      name: backend-network
   web:
     external:
       name: web-network
