@@ -24,8 +24,10 @@ spec:
   replicas: 1
   template:
     metadata:
+      name: postgres
       labels:
         app: postgres
+        name: postgres
     spec:
       containers:
       - name: postgres
@@ -69,4 +71,4 @@ spec:
   - port: 5432
     protocol: TCP
   selector:
-    run: postgres
+    name: postgres
