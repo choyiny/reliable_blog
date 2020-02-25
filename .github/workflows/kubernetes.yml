@@ -78,8 +78,8 @@ jobs:
       env:
         GITHUB_SHA: ${{steps.docker.outputs.IMAGE_SHA_NAME}}
       run: |
-        gcloud container clusters get-credentials $GKE_CLUSTER \
-          --zone $GKE_ZONE --project $GKE_PROJECT
+        gcloud container clusters get-credentials standard-cluster-1  \
+          --zone us-central1-a --project $GKE_PROJECT
 
         ./kustomize edit set image liujordan/GKE_PROJECT/IMAGE:TAG=liujordan/reliable-blog-backend:$GITHUB_SHA
         ./kustomize build ./kubernetes | kubectl apply -f -
