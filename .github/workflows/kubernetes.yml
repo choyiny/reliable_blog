@@ -58,15 +58,16 @@ jobs:
     - run: |
         gcloud auth configure-docker
     # Build the Docker image
-    - name: Build
-      run: |
-        cd backend && docker build -t liujordan/reliable-blog-backend:$GITHUB_SHA \
-          --build-arg GITHUB_SHA="$GITHUB_SHA" \
-          --build-arg GITHUB_REF="$GITHUB_REF" .
-    # Push the Docker image to Google Container Registry
-    - name: Publish
-      run: |
-        docker push liujordan/reliable-blog-backend:$GITHUB_SHA
+    - name: Publish Docker Image to GPR
+      uses: machine-learning-apps/gpr-docker-publish@master
+      id: docker
+      with:
+        IMAGE_NAME: 'reliable-blog-backend'
+        TAG: 'latest'
+        DOCKERFILE_PATH: 'backend/Dockerfile'
+        BUILD_CONTEXT: 'backend'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     # Set up kustomize
     - name: Set up Kustomize
       run: |
@@ -74,6 +75,8 @@ jobs:
         chmod u+x ./kustomize
     # Deploy the Docker image to the GKE cluster
     - name: Deploy
+      env:
+        GITHUB_SHA: ${{steps.docker.outputs.IMAGE_SHA_NAME}}
       run: |
         gcloud container clusters get-credentials $GKE_CLUSTER \
           --zone $GKE_ZONE --project $GKE_PROJECT
