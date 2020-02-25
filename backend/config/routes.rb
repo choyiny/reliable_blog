@@ -6,4 +6,6 @@ Rails.application.routes.draw do
   post 'register', to: 'authentication#register'
 
   get 'error', to: 'test#error'
+
+  get '', to: 'index#index'
 end
