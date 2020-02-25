@@ -14,7 +14,7 @@ spec:
         run: reliable-web-backend
     spec:
       containers:
-      - image: docker.pkg.github.com/choyiny/reliable_blog/reliable-blog-backend:2d750c1a9753
+      - image: docker.pkg.github.com/choyiny/reliable_blog/reliable-blog-backend:39340cd19bca
         imagePullPolicy: IfNotPresent
         name: reliable-web-backend
         ports:
@@ -27,6 +27,9 @@ spec:
         - mountPath: /usr/src/app/config/database.yml
           name: config
           subPath: database.yml
+        - mountPath: /usr/src/app/config/elastic_apm.yml
+          name: config
+          subPath: elastic_apm.yml
       imagePullSecrets:
         - name: github-registry-secret
       volumes:
@@ -75,6 +78,9 @@ apiVersion: v1
 metadata:
   name: repliable-backend-configuration
 data:
+  elastic_apm.yml: |
+    server_url: http://apm-server.default:8200
+    secret_token: ''
   database.yml: |
     # SQLite. Versions 3.8.0 and up are supported.
     #   gem install sqlite3
@@ -105,4 +111,3 @@ data:
     production:
       <<: *default
       database: blog
-

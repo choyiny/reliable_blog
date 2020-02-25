@@ -1,0 +1,62 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: apm-server
+spec:
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  replicas: 1
+  template:
+    metadata:
+      name: apm-server
+      labels:
+        app: apm-server
+        name: apm-server
+    spec:
+      containers:
+      - name: apm-server
+        image: docker.elastic.co/apm/apm-server:7.5.2
+        imagePullPolicy: "IfNotPresent"
+        ports:
+        - containerPort: 8200
+        volumeMounts:
+        - mountPath: /usr/share/apm-server/apm-server.yml
+          name: config
+          subPath: apm-server.yml
+      volumes:
+      - name: config
+        configMap:
+          name: apm-server-config
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apm-server
+  namespace: default
+  labels:
+    run: apm-server
+spec:
+  ports:
+  - port: 8200
+    protocol: TCP
+  selector:
+    name: apm-server
+
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: apm-server-config
+data:
+  apm-server.yml: |
+    apm-server:
+      host: "0.0.0.0:8200"
+    output.elasticsearch:
+      hosts: ["https://elastic.deployingreliable.software:443"]
+      protocol: "http"
+      username: "elastic"
+      password: "temppass"
