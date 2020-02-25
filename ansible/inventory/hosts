@@ -15,3 +15,6 @@ docker2.deployingreliable.software
 docker1.deployingreliable.software
 docker2.deployingreliable.software
 
+
+[kubernetes-cluster]
+deployingreliable.software

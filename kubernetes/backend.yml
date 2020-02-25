@@ -14,7 +14,7 @@ spec:
         run: reliable-web-backend
     spec:
       containers:
-      - image: docker.pkg.github.com/choyiny/reliable_blog/reliable-blog-backend:2d750c1a9753
+      - image: liujordan/GKE_PROJECT/IMAGE:TAG
         imagePullPolicy: IfNotPresent
         name: reliable-web-backend
         ports:
