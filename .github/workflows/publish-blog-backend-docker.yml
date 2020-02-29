@@ -1,4 +1,4 @@
-name: Backend Deployed
+name: Backend Built
 on:
   push:
     branches:
@@ -25,11 +25,11 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Deploy backend
-      uses: ./.github/actions/deploy
-      env:
-        EXTRA_VARS: backend_image=${{ steps.docker.outputs.IMAGE_SHA_NAME }}
-        DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
-        VAULT_PASS: ${{ secrets.VAULT_PASS }}
-        DEPLOY_FILE: 'redeploy-backend.yml'
-        SSH_USERNAME: choyiny
+    # - name: Deploy backend
+    #   uses: ./.github/actions/deploy
+    #   env:
+    #     EXTRA_VARS: backend_image=${{ steps.docker.outputs.IMAGE_SHA_NAME }}
+    #     DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+    #     VAULT_PASS: ${{ secrets.VAULT_PASS }}
+    #     DEPLOY_FILE: 'redeploy-backend.yml'
+    #     SSH_USERNAME: choyiny
