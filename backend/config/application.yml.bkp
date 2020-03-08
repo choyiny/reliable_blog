@@ -1,0 +1,2 @@
+MONGO_QUERYSTORE_URL: 'mongodb://root:example@localhost:27017/asdf'
+MONGO_QUERYMAP_URL: 'mongodb://root:example@localhost:27018/asdf'
