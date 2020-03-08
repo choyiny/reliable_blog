@@ -1,6 +1,8 @@
 [docker]
 deployingreliable.software
 monitor.deployingreliable.software
+cscdw20p01.utsc.utoronto.ca
+demo2.choy.in
 
 [docker:children]
 docker-cluster-1
@@ -14,4 +16,3 @@ docker2.deployingreliable.software
 [docker-cluster-1]
 docker1.deployingreliable.software
 docker2.deployingreliable.software
-

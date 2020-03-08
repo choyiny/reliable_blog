@@ -1,0 +1,9 @@
+---
+- hosts: cscdw20p01.utsc.utoronto.ca
+  vars:
+    - deploy_with_compose: true
+  roles:
+    - docker-nginx
+    - kibana
+    - heartbeat
+    - elasticsearch

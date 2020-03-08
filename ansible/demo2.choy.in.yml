@@ -1,0 +1,9 @@
+---
+- hosts: demo2.choy.in
+  vars:
+    - deploy_with_compose: true
+  roles:
+    - docker-nginx
+    - kibana
+    - heartbeat
+    - elasticsearch

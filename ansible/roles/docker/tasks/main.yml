@@ -23,12 +23,12 @@
     - yum-utils
     - device-mapper-persistent-data
     - lvm2
-  when : item not in ansible_facts.packages
+  # when : item not in ansible_facts.packages
   become: yes
 
 - name: Add Docker repo
   command: "yum-config-manager --add-repo {{ docker['repo_url'] }}"
-  when : "'docker-ce' not in ansible_facts.packages"
+  # when : "'docker-ce' not in ansible_facts.packages"
   become: yes
 
 - name: Install Docker
@@ -39,7 +39,7 @@
     - containerd.io
     - docker-ce
     - docker-ce-cli
-  when : item not in ansible_facts.packages
+  # when : item not in ansible_facts.packages
   become: yes
 
 - name: Create Docker daemon folder
@@ -50,7 +50,7 @@
     state: directory
     mode: 0755
   become: yes
-  
+
 - name: Copy docker daemon.json
   copy:
     src: daemon.json

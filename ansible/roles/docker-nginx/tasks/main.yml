@@ -30,3 +30,4 @@
 - name: Deploy services to compose
   command: docker-compose -f "{{ root_directory }}/docker-compose.nginx.yml" up -d
   when: deploy_with_compose
+  become: yes
