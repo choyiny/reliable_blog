@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiRootUrl: 'https://backend:3000',
+  apiRootUrl: 'http://localhost:3000',
   settings: {
     sentry_dsn: ''
   }

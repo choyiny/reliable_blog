@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
 import {PostInterface} from '@root/interfaces/post-interface';
 import {ApiEndpointService} from '@root/services/api-endpoint.service';
-import {HttpClient} from '@angular/common/http';
-import {map} from 'rxjs/operators';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {map, tap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
+
+  private currentQueryId: string;
 
   constructor(
     private endpointService: ApiEndpointService,
@@ -27,14 +29,19 @@ export class ApiService {
     );
   }
 
-  getPosts(): Observable<PostInterface[]> {
-    return this.http.get(this.endpointService.urlFor('get_posts')).pipe(
-      map((obj: PostInterface[]) => obj)
+  getPosts(searchParam?: string): Observable<PostInterface[]> {
+    const params = new HttpParams().set('query', searchParam || '');
+    return this.http.get(this.endpointService.urlFor('get_posts'), {params}).pipe(
+      map((obj: {posts: PostInterface[], query_id: string}) => {
+        this.currentQueryId = obj.query_id;
+        return obj.posts.map((post) => post as PostInterface);
+      })
     );
   }
 
   getPost(postId: string): Observable<PostInterface> {
-    return this.http.get(this.endpointService.urlFor('get_post', {postId})).pipe(
+    const params = new HttpParams().set('query_id', this.currentQueryId || '');
+    return this.http.get(this.endpointService.urlFor('get_post', {postId}), {params}).pipe(
       map((obj) => obj as PostInterface)
     );
   }

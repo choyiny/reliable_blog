@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_21_052840) do
+ActiveRecord::Schema.define(version: 2020_03_08_201155) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "click_logs", force: :cascade do |t|
+    t.bigint "post_id", null: false
+    t.bigint "query_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["post_id"], name: "index_click_logs_on_post_id"
+    t.index ["query_id"], name: "index_click_logs_on_query_id"
+  end
 
   create_table "comments", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -46,6 +55,18 @@ ActiveRecord::Schema.define(version: 2019_12_21_052840) do
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
+  create_table "query_logs", force: :cascade do |t|
+    t.bigint "first_post_id", null: false
+    t.bigint "second_post_id", null: false
+    t.bigint "third_post_id", null: false
+    t.string "search_term"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["first_post_id"], name: "index_query_logs_on_first_post_id"
+    t.index ["second_post_id"], name: "index_query_logs_on_second_post_id"
+    t.index ["third_post_id"], name: "index_query_logs_on_third_post_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "email"
@@ -54,8 +75,13 @@ ActiveRecord::Schema.define(version: 2019_12_21_052840) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "click_logs", "posts"
+  add_foreign_key "click_logs", "query_logs", column: "query_id"
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
   add_foreign_key "posts", "users"
   add_foreign_key "profiles", "users"
+  add_foreign_key "query_logs", "posts", column: "first_post_id"
+  add_foreign_key "query_logs", "posts", column: "second_post_id"
+  add_foreign_key "query_logs", "posts", column: "third_post_id"
 end

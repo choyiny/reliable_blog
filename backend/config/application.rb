@@ -35,8 +35,12 @@ module Backend
     config.api_only = true
     config.autoload_paths << Rails.root.join('lib')
 
-    Raven.configure do |config|
-      config.dsn = 'https://da3b7d51a9b949ee8ed047304e110b35:0b3b79998f104f22846de894e884aa86@sentry.io/1884988'
+    config.elastic_apm.disable_send = !Rails.env.production?
+
+    if Rails.env.production?
+      Raven.configure do |config|
+        config.dsn = 'https://da3b7d51a9b949ee8ed047304e110b35:0b3b79998f104f22846de894e884aa86@sentry.io/1884988'
+      end
     end
 
   end

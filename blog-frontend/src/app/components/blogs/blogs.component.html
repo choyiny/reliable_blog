@@ -1,3 +1,15 @@
+<div class="search-bar">
+  <h3>Search a topic</h3>
+  <form class="search-form" [formGroup]="searchForm">
+    <mat-form-field class="w-100">
+      <input type="text" matInput placeholder="What do you want to know?" formControlName="search">
+    </mat-form-field>
+  </form>
+  <div class="blogs-container row">
+    <app-blog-preview class="post-preview col-12 col-lg-4" *ngFor="let post of searchedPosts" [post]="post"></app-blog-preview>
+  </div>
+  <p *ngIf="searchedPosts && searchForm.dirty">No content found.</p>
+</div>
 <h3>What's New?</h3>
 <p *ngIf="posts?.length == 0">There is nothing new.</p>
 <div class="blogs-container row">
