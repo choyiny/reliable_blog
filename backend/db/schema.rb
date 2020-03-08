@@ -56,9 +56,9 @@ ActiveRecord::Schema.define(version: 2020_03_08_201155) do
   end
 
   create_table "query_logs", force: :cascade do |t|
-    t.bigint "first_post_id", null: false
-    t.bigint "second_post_id", null: false
-    t.bigint "third_post_id", null: false
+    t.bigint "first_post_id"
+    t.bigint "second_post_id"
+    t.bigint "third_post_id"
     t.string "search_term"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -76,12 +76,8 @@ ActiveRecord::Schema.define(version: 2020_03_08_201155) do
   end
 
   add_foreign_key "click_logs", "posts"
-  add_foreign_key "click_logs", "query_logs", column: "query_id"
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
   add_foreign_key "posts", "users"
   add_foreign_key "profiles", "users"
-  add_foreign_key "query_logs", "posts", column: "first_post_id"
-  add_foreign_key "query_logs", "posts", column: "second_post_id"
-  add_foreign_key "query_logs", "posts", column: "third_post_id"
 end
