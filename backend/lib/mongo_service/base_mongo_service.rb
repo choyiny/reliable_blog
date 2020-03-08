@@ -7,7 +7,7 @@ module MongoService
       @@connection ||= {}
 
       unless defined?(@@connection[url]) && @@connection[url]
-        @@connection[url] = Mongo::Client.new(url, password: 'example')
+        @@connection[url] = Mongo::Client.new(url)
       end
       @@connection[url]
     end

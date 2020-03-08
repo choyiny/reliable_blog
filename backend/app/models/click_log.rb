@@ -4,6 +4,6 @@ class ClickLog < ApplicationRecord
   after_create :publish_click_log
 
   def publish_click_log
-    RedisService::RedisPublisherService.new('click_logs', self).process
+    RedisService::RedisPublisherService.new(self.to_json, 'click_logs').process
   end
 end

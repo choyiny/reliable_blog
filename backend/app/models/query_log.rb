@@ -10,7 +10,7 @@ class QueryLog < ApplicationRecord
     collection.insert_one({
         id: self.id,
         time: self.created_at,
-        post_ids: Set[self.first_post_id, self.second_post_id, self.third_post_id],
+        post_ids: [self.first_post_id, self.second_post_id, self.third_post_id].compact,
         search_term: self.search_term
     })
   end
