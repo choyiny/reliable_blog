@@ -4,10 +4,10 @@ module MongoService
     require 'mongo'
 
     def connection(url)
-      @@connection = {} if @@connection.nil?
+      @@connection ||= {}
 
       unless defined?(@@connection[url]) && @@connection[url]
-        @@connection[url] = Mongo::Client.new(url)
+        @@connection[url] = Mongo::Client.new(url, password: 'example')
       end
       @@connection[url]
     end

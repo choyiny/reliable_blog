@@ -35,7 +35,6 @@ function makeClick() {
 
 // shared state
 var Share = function() {
-  this.things = []
   listeners = {}
   this.on = (event, fn) => {
     if (listeners[event]) {
@@ -90,7 +89,7 @@ subscriber.on("message", function (channel, message) {
   console.log("Message: " + message + " on channel: " + channel + " is arrive!");
   share.emit('newclicklog', JSON.parse(message))
 });
-subscriber.subscribe("notification");
+subscriber.subscribe("click_logs");
 
 
 

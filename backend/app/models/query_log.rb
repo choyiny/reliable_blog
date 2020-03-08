@@ -5,7 +5,7 @@ class QueryLog < ApplicationRecord
   after_create :push_to_query_map
 
   def push_to_query_store
-    connection = MongoService::BaseMongoService.connection(ENV[:MONGO_QUERYSTORE_URL])
+    connection = MongoService::BaseMongoService.new.connection(ENV['MONGO_QUERYSTORE_URL'])
     collection = connection[:asdf]
     collection.insert_one({
         id: self.id,
@@ -16,7 +16,7 @@ class QueryLog < ApplicationRecord
   end
 
   def push_to_query_map
-    connection = MongoService::BaseMongoService.connection(ENV[:MONGO_QUERYMAP_URL])
+    connection = MongoService::BaseMongoService.new.connection(ENV['MONGO_QUERYMAP_URL'])
     collection = connection[:asdf]
     [self.first_post_id, self.second_post_id, self.third_post_id].each do |post_id|
       unless post_id.nil?

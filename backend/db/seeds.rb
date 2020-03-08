@@ -11,7 +11,7 @@
 
 # we want to seed initial query and click logs
 # click logs are around 10% of queries.
-2000.times do |index|
+10.times do |index|
   query_log = QueryLog.create!(first_post_id: rand(1..10), second_post_id: rand(11..20), third_post_id: rand(21..30), search_term: rand(1..100))
   # do click logs every 10 times
   if index % 10 == 0
