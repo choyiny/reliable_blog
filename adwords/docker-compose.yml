@@ -15,9 +15,6 @@ services:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
   clicklog:
-    image: postgres
+    image: redis:alpine
     ports: 
-      - 5432:5432
-    environment:
-      POSTGRES_PASSWORD: example
-      POSTGRES_DB: clicks
+      - 6379:6379
