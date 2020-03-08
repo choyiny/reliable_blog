@@ -5,8 +5,8 @@ class QueryLog < ApplicationRecord
   after_create :push_to_query_map
 
   def push_to_query_store
-    collection = MongoService::BaseMongoService.connection(ENV[:MONGO_QUERYSTORE_URL])
-
+    connection = MongoService::BaseMongoService.connection(ENV[:MONGO_QUERYSTORE_URL])
+    collection = connection[:asdf]
     collection.insert_one({
         id: self.id,
         time: self.created_at,
@@ -16,6 +16,7 @@ class QueryLog < ApplicationRecord
   end
 
   def push_to_query_map
-    collection = MongoService::BaseMongoService.connection(ENV[:MONGO_QUERYSTORE_URL])
+    connection = MongoService::BaseMongoService.connection(ENV[:MONGO_QUERYMAP_URL])
+    collection = connection[:asdf]
   end
 end
