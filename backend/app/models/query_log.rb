@@ -18,5 +18,15 @@ class QueryLog < ApplicationRecord
   def push_to_query_map
     connection = MongoService::BaseMongoService.connection(ENV[:MONGO_QUERYMAP_URL])
     collection = connection[:asdf]
+    [self.first_post_id, self.second_post_id, self.third_post_id].each do |post_id|
+      unless post_id.nil?
+        collection.update_one(
+            {post_id: post_id, search_term: self.search_term},
+            {'$addToSet': {query_ids: self.id}},
+            {upsert: true}
+        )
+      end
+    end
+
   end
 end
