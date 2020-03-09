@@ -1,16 +1,13 @@
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 const redis = require("redis");
+const configs = require("./config.js");
 
-const queryStoreUrl = 'mongodb://root:example@localhost:27017';
-const clickMapUrl = 'mongodb://root:example@localhost:27018';
+const queryStoreUrl = configs.queryStoreUrl;
+const clickMapUrl = configs.clickMapUrl;
 
 const dbName = 'myproject';
-const subscriber = redis.createClient();
- 
-const query_id = "asdfasdfasdfasdf"
-const ad_id = "asdfasdfasdfasdfasdf"
-const time = new Date().getTime()
+const subscriber = redis.createClient(configs.redis);
 
 // shared state
 var Share = function() {
@@ -36,9 +33,6 @@ MongoClient.connect(queryStoreUrl, function(err, client) {
   // on new click logs, join with a query and send to clickmap
   share.on('newclicklog', data => {
     db.collection('querystore').findOne({_id: data.query_id}).then(res => {
-      console.log(res)
-      console.log(data)
-      console.log(data.query_id)
       if (res == null) return
       share.emit('pushtoclickmap', {query: res, clicklog: data})
     })
