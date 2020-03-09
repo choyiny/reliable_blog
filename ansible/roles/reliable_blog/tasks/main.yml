@@ -23,5 +23,9 @@
     password: "{{ docker.password }}"
 - name: Pull latest images
   command: docker-compose --log-level error -f "{{ root_directory }}/docker-compose.yml" pull
-- name: Deploy services
-  command: docker --log-level ERROR stack deploy -c "{{ root_directory }}/docker-compose.yml" blog
+- name: Down
+  command: docker-compose --log-level error -f "{{ root_directory }}/docker-compose.yml" down
+- name: Up
+  command: docker-compose --log-level error -f "{{ root_directory }}/docker-compose.yml" up -d
+# - name: Deploy services
+#   command: docker --log-level ERROR stack deploy -c "{{ root_directory }}/docker-compose.yml" blog

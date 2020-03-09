@@ -20,5 +20,7 @@
   command: docker-compose -f "{{ root_directory }}/docker-compose.apm.yml" pull
 - name: Take down compose
   command: docker-compose -f "{{ root_directory }}/docker-compose.apm.yml" down
-- name: Deploy APM server
-  command: docker --log-level ERROR stack deploy -c "{{ root_directory }}/docker-compose.apm.yml" apm
+- name: Up
+  command: docker-compose -f "{{ root_directory }}/docker-compose.apm.yml" up
+# - name: Deploy APM server
+#   command: docker --log-level ERROR stack deploy -c "{{ root_directory }}/docker-compose.apm.yml" apm

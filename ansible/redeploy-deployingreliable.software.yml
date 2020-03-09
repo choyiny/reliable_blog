@@ -1,9 +1,9 @@
 ---
 - hosts: deployingreliable.software
   vars:
-    - deploy_with_compose: false
+    - deploy_with_compose: true
   roles:
-    - docker-nginx
+    # - docker-nginx
     - reliable_blog_adwords
     - reliable_blog
     - reliable_blog_frontend

@@ -49,10 +49,10 @@ class PostsController < ApplicationController
     if params[:query].blank?
       @posts = Post.all
     else
-      @posts = Post.search_by_query(params[:query])
+      @posts = Post.search_by_query(params[:query]).limit(3)
     end
 
-    @posts = @posts.limit(3).select(:id, :title, :user_id)
+    @posts = @posts.select(:id, :title, :user_id)
   end
 
   # Use callbacks to share common setup or constraints between actions.

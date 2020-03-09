@@ -4,6 +4,7 @@ services:
     image: {{ backend_image }}
     volumes:
       - ./config/application.yml:/usr/src/app/config/application.yml
+      - ./config/database.yml:/usr/src/app/config/database.yml
     networks:
       - web
       - backend-network
