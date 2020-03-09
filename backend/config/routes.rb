@@ -8,4 +8,6 @@ Rails.application.routes.draw do
   get 'error', to: 'test#error'
 
   get '', to: 'index#index'
+
+  get 'dashboard', to 'dashboard#get'
 end
