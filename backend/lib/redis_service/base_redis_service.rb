@@ -3,11 +3,9 @@ module RedisService
   class BaseRedisService
     require 'redis'
 
-    REDIS_HOST = '127.0.0.1'
-
     def connection
       unless defined?(@@connection) && @@connection
-        @@connection = Redis.new({host: REDIS_HOST})
+        @@connection = Redis.new({host: ENV['REDIS_HOST']})
       end
       @@connection
     end
