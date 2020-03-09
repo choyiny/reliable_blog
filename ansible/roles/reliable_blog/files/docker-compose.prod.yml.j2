@@ -2,6 +2,8 @@ version: '3.7'
 services:
   backend:
     image: {{ backend_image }}
+    volumes:
+      - ./config/application.yml:/usr/src/app/config/application.yml
     networks:
       - web
       - backend-network
