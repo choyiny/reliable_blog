@@ -57,7 +57,7 @@ MongoClient.connect(clickMapUrl, function(err, client) {
           search_term: data.query.search_term
         }
       },
-      {$addToSet: {queries: data.query}},
+      {$addToSet: {query_ids: data.query._id}},
       {upsert: true}  
     )
     .then(res => {

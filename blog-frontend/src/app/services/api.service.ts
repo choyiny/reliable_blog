@@ -47,7 +47,7 @@ export class ApiService {
   }
 
   getStatistics(searchTerm: string, postId: string) {
-    const params = new HttpParams().set('searchTerm', searchTerm).set('postId', postId);
+    const params = new HttpParams().set('search_term', searchTerm).set('post_id', postId);
     return this.http.get(this.endpointService.urlFor('dashboard'), {params});
   }
 
