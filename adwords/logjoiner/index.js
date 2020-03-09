@@ -12,27 +12,6 @@ const query_id = "asdfasdfasdfasdf"
 const ad_id = "asdfasdfasdfasdfasdf"
 const time = new Date().getTime()
 
-const fakeQuery = {
-  _id: query_id,
-  time: time,
-  ad_id: ad_id,
-  search_term: "haha what a search am i right?",
-  other_data: {
-    first_name: "jordan",
-    last_name: "liu",
-    attr1: "attr1",
-    attr2: "attr2"
-  }
-}
-
-function makeClick() {
-  return {
-    query_id: query_id,
-    time: new Date().getTime(),
-    ad_id: ad_id
-  }
-}
-
 // shared state
 var Share = function() {
   listeners = {}
