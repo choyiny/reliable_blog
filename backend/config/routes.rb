@@ -9,5 +9,5 @@ Rails.application.routes.draw do
 
   get '', to: 'index#index'
 
-  get 'dashboard', to 'dashboard#get'
+  get 'dashboard', to: 'dashboard#get'
 end

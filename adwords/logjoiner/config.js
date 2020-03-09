@@ -3,8 +3,8 @@ var config = {
     host: 'clicklog',
     port: 6379
   },
-  queryStoreUrl: 'mongodb://root:example@querystore',
-  clickMapUrl: 'mongodb://root:example@clickmap'
+  queryStoreUrl: 'mongodb://querystore',
+  clickMapUrl: 'mongodb://clickmap'
 }
 
 module.exports = config;
