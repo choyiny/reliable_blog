@@ -6,23 +6,24 @@ class QueryLog < ApplicationRecord
 
   def push_to_query_store
     connection = MongoService::BaseMongoService.new.connection(ENV['MONGO_QUERYSTORE_URL'])
-    collection = connection[:asdf]
+    collection = connection[:querystore]
     collection.insert_one({
-        id: self.id,
+        _id: self.id.to_s,
         time: self.created_at,
-        post_ids: [self.first_post_id, self.second_post_id, self.third_post_id].compact,
+        post_ids: [self.first_post_id.to_s, self.second_post_id.to_s, self.third_post_id.to_s].reject(&:empty?),
         search_term: self.search_term
     })
   end
 
   def push_to_query_map
     connection = MongoService::BaseMongoService.new.connection(ENV['MONGO_QUERYMAP_URL'])
-    collection = connection[:asdf]
+    collection = connection[:querymap]
     [self.first_post_id, self.second_post_id, self.third_post_id].each do |post_id|
       unless post_id.nil?
+        post_id = post_id.to_s
         collection.update_one(
-            {post_id: post_id, search_term: self.search_term},
-            {'$addToSet': {query_ids: self.id}},
+            {_id: {post_id: post_id.to_s, search_term: self.search_term}, post_id: post_id.to_s, search_term: self.search_term},
+            {'$addToSet': {query_ids: self.id.to_s}},
             {upsert: true}
         )
       end

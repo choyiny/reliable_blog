@@ -56,7 +56,13 @@ MongoClient.connect(queryStoreUrl, function(err, client) {
   const db = client.db(dbName);
   // on new click logs, join with a query and send to clickmap
   share.on('newclicklog', data => {
-    share.emit('pushtoclickmap', {query: fakeQuery, clicklog: data})
+    db.collection('querystore').findOne({_id: data.query_id}).then(res => {
+      console.log(res)
+      console.log(data)
+      console.log(data.query_id)
+      if (res == null) return
+      share.emit('pushtoclickmap', {query: res, clicklog: data})
+    })
   })
 
   // release the client when the stream is finished
@@ -71,14 +77,20 @@ MongoClient.connect(clickMapUrl, function(err, client) {
 
   // on new joined click+query send to click map
   share.on('pushtoclickmap', data => {
-    db.collection('asdf').updateOne(
+    db.collection('clickmap').updateOne(
       {
-        query_id: data.query._id,
-        search_term: data.query.search_term
+        _id: {
+          post_id: data.clicklog.post_id,
+          search_term: data.query.search_term
+        }
       },
-      {$addToSet: {clicklogs: data.clicklog}},
+      {$addToSet: {queries: data.query}},
       {upsert: true}  
     )
+    .then(res => {
+      console.log("Inserted " + JSON.stringify(res.result) + " to ")
+    })
+    .catch(console.error)
   })
 
   // release the client when the stream is finished
@@ -90,12 +102,6 @@ subscriber.on("message", function (channel, message) {
   share.emit('newclicklog', JSON.parse(message))
 });
 subscriber.subscribe("click_logs");
-
-
-
-
-
-
 
 
 
