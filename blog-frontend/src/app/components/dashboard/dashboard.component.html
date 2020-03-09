@@ -7,7 +7,7 @@
     <mat-form-field>
       <mat-label>Post</mat-label>
       <mat-select formControlName="postId">
-        <mat-option *ngFor="let post of posts">
+        <mat-option *ngFor="let post of posts" [value]="post.id">
           {{post.title}}
         </mat-option>
       </mat-select>
