@@ -10,7 +10,7 @@ import {BlogsComponent} from './components/blogs/blogs.component';
 import {BlogComponent} from './components/blog/blog.component';
 import {PreviewComponent} from './includes/preview/preview.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule} from '@angular/material';
+import {MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatSelectModule} from '@angular/material';
 import {RouterModule} from '@angular/router';
 import {LoginComponent} from './components/login/login.component';
 import {NewComponent} from './components/new/new.component';
@@ -53,6 +53,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSelectModule,
     QuillModule.forRoot({
       modules: {
         syntax: true,

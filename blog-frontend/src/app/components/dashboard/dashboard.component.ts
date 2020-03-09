@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ApiService} from '@root/services/api.service';
+import {Post} from '@root/models/post';
+import {PostInterface} from '@root/interfaces/post-interface';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,6 +12,7 @@ import {ApiService} from '@root/services/api.service';
 export class DashboardComponent implements OnInit {
   dashboardForm: FormGroup;
   results: object;
+  posts: PostInterface[];
 
   constructor(
     private fb: FormBuilder,
@@ -19,6 +22,8 @@ export class DashboardComponent implements OnInit {
       searchParam: [''],
       postId: ['']
     });
+
+    this.api.getPosts().subscribe((posts) => this.posts = posts);
   }
 
   submit() {

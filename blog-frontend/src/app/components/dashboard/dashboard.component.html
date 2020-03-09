@@ -4,8 +4,13 @@
     <mat-form-field class="w-100">
       <input type="text" matInput placeholder="Search Param" formControlName="searchParam">
     </mat-form-field>
-    <mat-form-field class="w-100">
-      <input type="text" matInput placeholder="Post ID" formControlName="postId">
+    <mat-form-field>
+      <mat-label>Post</mat-label>
+      <mat-select formControlName="postId">
+        <mat-option *ngFor="let post of posts">
+          {{post.title}}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
     <button type="submit" mat-flat-button color="primary">Submit</button>
   </form>
