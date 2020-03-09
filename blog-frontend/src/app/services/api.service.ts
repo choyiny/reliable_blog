@@ -46,4 +46,9 @@ export class ApiService {
     );
   }
 
+  getStatistics(searchTerm: string, postId: string) {
+    const params = new HttpParams().set('searchTerm', searchTerm).set('postId', postId);
+    return this.http.get(this.endpointService.urlFor('dashboard'), {params});
+  }
+
 }

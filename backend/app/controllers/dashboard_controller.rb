@@ -19,7 +19,8 @@ class DashboardController < ApplicationController
 
     render json: {
         clicks: num_clicks,
-        queries: num_queries
+        queries: num_queries,
+        ctr: num_clicks / num_queries * 100
     }
 
   end

@@ -1,0 +1,13 @@
+<div class="search-bar">
+  <h3>Search a topic</h3>
+  <form class="search-form" [formGroup]="dashboardForm" (submit)="submit()">
+    <mat-form-field class="w-100">
+      <input type="text" matInput placeholder="Search Param" formControlName="searchParam">
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <input type="text" matInput placeholder="Post ID" formControlName="postId">
+    </mat-form-field>
+    <button type="submit" mat-flat-button color="primary">Submit</button>
+  </form>
+  <p>{{results}}</p>
+</div>

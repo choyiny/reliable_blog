@@ -8,6 +8,7 @@ import {AboutComponent} from '@root/components/about/about.component';
 import {EditComponent} from '@root/components/edit/edit.component';
 import {ExperimentsComponent} from '@root/components/experiments/experiments.component';
 import {StatusComponent} from '@root/components/status/status.component';
+import {DashboardComponent} from '@root/components/dashboard/dashboard.component';
 
 const routes: Routes = [
   {
@@ -41,6 +42,10 @@ const routes: Routes = [
   {
     component: StatusComponent,
     path: 'status'
+  },
+  {
+    component: DashboardComponent,
+    path: 'dashboard'
   },
   {
     path: '**',

@@ -22,6 +22,7 @@ import { EditComponent } from './components/edit/edit.component';
 import { ExperimentsComponent } from './components/experiments/experiments.component';
 import { StatusComponent } from './components/status/status.component';
 import {SentryErrorHandler} from '@root/interceptors/sentry.error-handler';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import {SentryErrorHandler} from '@root/interceptors/sentry.error-handler';
     FooterComponent,
     EditComponent,
     ExperimentsComponent,
-    StatusComponent
+    StatusComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

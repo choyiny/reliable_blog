@@ -24,7 +24,8 @@ export class ApiEndpointService {
     create_post: '/posts',
     get_post: '/posts/{{postId}}',
     get_posts: '/posts',
-    edit_post: '/posts/{{postId}}'
+    edit_post: '/posts/{{postId}}',
+    dashboard: '/dashboard'
   };
 
   constructor() {
