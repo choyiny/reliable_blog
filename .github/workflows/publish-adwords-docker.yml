@@ -1,0 +1,35 @@
+name: Logjoiner Built
+on:
+  push:
+    branches:
+      - master # on push to master
+    paths:
+      - adwords/**
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Copy Repo Files
+      uses: actions/checkout@master
+
+    - name: Publish Docker Image to GPR
+      uses: machine-learning-apps/gpr-docker-publish@master
+      id: docker
+      with:
+        IMAGE_NAME: 'reliable-blog-adwords'
+        TAG: 'latest'
+        DOCKERFILE_PATH: 'adwords/logjoiner/Dockerfile'
+        BUILD_CONTEXT: 'adwords/logjoiner'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    # - name: Deploy backend
+    #   uses: ./.github/actions/deploy
+    #   env:
+    #     EXTRA_VARS: backend_image=${{ steps.docker.outputs.IMAGE_SHA_NAME }}
+    #     DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+    #     VAULT_PASS: ${{ secrets.VAULT_PASS }}
+    #     DEPLOY_FILE: 'redeploy-backend.yml'
+    #     SSH_USERNAME: choyiny

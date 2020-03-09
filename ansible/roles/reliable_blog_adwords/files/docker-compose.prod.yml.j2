@@ -1,0 +1,31 @@
+version: '3.7'
+services:
+  adwords:
+    image: {{ adwords_image }}
+    volumes:
+      - ./config/config.js:/app/config.js
+    networks:
+      - backend-network
+  querystore:
+    image: mongo
+    volumes:
+      - querystore:/data/db/
+    networks:
+      - backend-network
+  clickmap:
+    image: mongo
+    networks:
+      - backend-network
+    volumes:
+      - clickmap:/data/db/
+  clicklog:
+    image: redis:alpine
+    networks:
+      - backend-network
+volumes:
+  querystore:
+  clickmap:
+networks:
+  backend-network:
+    external:
+      name: backend-network

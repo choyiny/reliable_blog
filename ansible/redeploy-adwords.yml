@@ -1,8 +1,7 @@
 ---
-- name: Redeploy frontend
+- name: Redeploy Adwords
   hosts: deployingreliable.software
   vars:
     - deploy_with_compose: false
   roles:
-    - reliable_blog_frontend
-  become: yes
+    - reliable_blog_adwords
