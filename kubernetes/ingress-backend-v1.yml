@@ -1,0 +1,23 @@
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: reliable-web-backend
+  labels:
+    app: reliable-backend
+  annotations:
+    cert-manager.io/issuer: "letsencrypt-staging"
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+    - host: kube1.deployingreliable.software
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: reliable-web-backend-v1
+              servicePort: 3000
+  tls:
+    - hosts:
+        - backend.deployingreliable.software
+      secretName: backend.deployingreliable.software
