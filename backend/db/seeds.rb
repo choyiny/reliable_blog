@@ -225,8 +225,8 @@ last_names = [
 ]
 # create some users
 20.times do |index|
-  firstname = first_names.sample(1)
-  lastname = last_names.sample(1)
+  firstname = first_names.sample(1).first
+  lastname = last_names.sample(1).first
   User.create({
     email: "#{firstname}.#{lastname}@gmail.com", 
     password: "temppass",
