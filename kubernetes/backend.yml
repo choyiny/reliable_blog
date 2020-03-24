@@ -14,7 +14,7 @@ spec:
         run: reliable-web-backend
     spec:
       containers:
-      - image: docker.pkg.github.com/choyiny/reliable_blog/reliable-blog-backend:39340cd19bca
+      - image: liujordan/reliable-backend:v3.0.0
         imagePullPolicy: IfNotPresent
         name: reliable-web-backend
         ports:
@@ -43,11 +43,11 @@ kind: Ingress
 metadata:
   name: reliable-web-backend
   annotations:
-    cert-manager.io/issuer: "letsencrypt-prod"
+    cert-manager.io/issuer: "letsencrypt-staging"
     kubernetes.io/ingress.class: "nginx"
 spec:
   rules:
-    - host: backend.deployingreliable.software
+    - host: kube1.deployingreliable.software
       http:
         paths:
           - path: /
