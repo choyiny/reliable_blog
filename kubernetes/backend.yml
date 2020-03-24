@@ -24,7 +24,7 @@ spec:
         - name: SECRET_KEY_BASE
           value: "Hello from the environment"
         - name: VERSION
-          value: v3.0.0
+          value: v4.0.0.BAD
         volumeMounts:
         - mountPath: /usr/src/app/config/database.yml
           name: config
