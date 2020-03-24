@@ -27,3 +27,6 @@ test:
 production:
   <<: *default
   database: blog
+  host: postgres.deployingreliable.software
+  username: postgres
+  password: postgres

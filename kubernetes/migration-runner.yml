@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: reliable-web-backend
+  name: migration-runner
   namespace: default
 spec:
-  replicas: 4
+  replicas: 1
   selector:
     matchLabels:
-      run: reliable-web-backend
+      run: migration-runner
   template:
     metadata:
       labels:
-        run: reliable-web-backend
+        run: migration-runner
     spec:
       containers:
       - image: liujordan/reliable-backend:v3.0.0
         imagePullPolicy: Always
-        name: reliable-web-backend
+        name: migration-runner
         ports:
         - containerPort: 3000
           protocol: TCP
@@ -38,41 +38,6 @@ spec:
       - name: config
         configMap:
           name: repliable-backend-configuration
-
----
-apiVersion: networking.k8s.io/v1beta1
-kind: Ingress
-metadata:
-  name: reliable-web-backend
-  annotations:
-    cert-manager.io/issuer: "letsencrypt-staging"
-    kubernetes.io/ingress.class: "nginx"
-spec:
-  rules:
-    - host: kube1.deployingreliable.software
-      http:
-        paths:
-          - path: /
-            backend:
-              serviceName: reliable-web-backend
-              servicePort: 3000
-  tls:
-    - hosts:
-        - backend.deployingreliable.software
-      secretName: backend.deployingreliable.software
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: reliable-web-backend
-  namespace: default
-spec:
-  ports:
-  - port: 3000
-    protocol: TCP
-  selector:
-    run: reliable-web-backend
 
 ---
 kind: ConfigMap
