@@ -1,8 +1,11 @@
 host_name: deployingreliable.software
 elasticsearch_server_url: elastic.deployingreliable.software:9200
+
 backend_image: docker.pkg.github.com/choyiny/reliable_blog/reliable-blog-backend:5dcbd4d29574
+backend_config_image: docker.pkg.github.com/choyiny/reliable_blog/reliable-blog-backend-config:latest
 frontend_image: docker.pkg.github.com/choyiny/reliable_blog/reliable-blog-frontend:5dcbd4d29574
 adwords_image: docker.pkg.github.com/choyiny/reliable_blog/reliable-blog-adwords:2d3cdbdd44fa
+
 backend:
   secret_key_base: !vault |
     $ANSIBLE_VAULT;1.1;AES256
