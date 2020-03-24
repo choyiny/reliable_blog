@@ -14,7 +14,7 @@ spec:
         run: migration-runner
     spec:
       containers:
-      - image: liujordan/reliable-backend:v3.0.0
+      - image: liujordan/reliable-backend:v4.0.0.GOOD
         imagePullPolicy: Always
         name: migration-runner
         ports:
@@ -24,7 +24,7 @@ spec:
         - name: SECRET_KEY_BASE
           value: "Hello from the environment"
         - name: APP_VERSION
-          value: v3.0.0
+          value: v4.0.0.GOOD
         volumeMounts:
         - mountPath: /usr/src/app/config/database.yml
           name: config
