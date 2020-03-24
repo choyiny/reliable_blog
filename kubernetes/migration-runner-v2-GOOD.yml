@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: migration-runner
+  name: migration-runner-good
   namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      run: migration-runner
+      run: migration-runner-good
   template:
     metadata:
       labels:
-        run: migration-runner
+        run: migration-runner-good
     spec:
       containers:
       - image: liujordan/reliable-backend:v4.0.0.GOOD
         imagePullPolicy: Always
-        name: migration-runner
+        name: migration-runner-good
         ports:
         - containerPort: 3000
           protocol: TCP
