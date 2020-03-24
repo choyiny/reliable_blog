@@ -3,7 +3,8 @@ class IndexController < ApplicationController
   def index
     render json: {
         id: ENV['HOSTNAME'],
-        name: 'Reliable Blog Backend'
+        name: 'Reliable Blog Backend',
+        version: ENV['VERSION']
     }
   end
 end
