@@ -14,6 +14,12 @@ spec:
         run: reliable-web-backend
     spec:
       containers:
+      - image: docker.pkg.github.com/choyiny/reliable_blog/reliable-blog-backend-config:latest
+        imagePullPolicy: IfNotPresent
+        name: reliable-web-backend-config
+        volumeMounts:
+          - name: config-container
+            mountPath: /usr/config
       - image: docker.pkg.github.com/choyiny/reliable_blog/reliable-blog-backend:39340cd19bca
         imagePullPolicy: IfNotPresent
         name: reliable-web-backend
@@ -24,15 +30,17 @@ spec:
         - name: SECRET_KEY_BASE
           value: "Hello from the environment"
         volumeMounts:
-        - mountPath: /usr/src/app/config/database.yml
-          name: config
+        - mountPath: /usr/config/database.yml
+          name: config-container
           subPath: database.yml
-        - mountPath: /usr/src/app/config/elastic_apm.yml
-          name: config
+        - mountPath: /usr/config/elastic_apm.yml
+          name: config-container
           subPath: elastic_apm.yml
       imagePullSecrets:
         - name: github-registry-secret
       volumes:
+      - name: config-container
+        emptyDir: {}
       - name: config
         configMap:
           name: repliable-backend-configuration

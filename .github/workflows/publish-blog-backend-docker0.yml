@@ -1,0 +1,26 @@
+name: Backend Config Built
+on:
+  push:
+    branches:
+      - master # on push to master
+    paths:
+      - backend/**
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Copy Repo Files
+      uses: actions/checkout@master
+
+    - name: Publish Docker Image to GPR
+      uses: machine-learning-apps/gpr-docker-publish@master
+      id: docker
+      with:
+        IMAGE_NAME: 'reliable-blog-backend-config'
+        TAG: 'latest'
+        DOCKERFILE_PATH: 'backend-config/Dockerfile'
+        BUILD_CONTEXT: 'backend-config'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
