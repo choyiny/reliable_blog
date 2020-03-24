@@ -4,7 +4,7 @@ class IndexController < ApplicationController
     render json: {
         id: ENV['HOSTNAME'],
         name: 'Reliable Blog Backend',
-        version: ENV['VERSION']
+        version: ENV['APP_VERSION']
     }
   end
 end
