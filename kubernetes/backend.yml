@@ -14,7 +14,7 @@ spec:
         run: reliable-web-backend
     spec:
       containers:
-      - image: docker.pkg.github.com/choyiny/reliable_blog/reliable-blog-backend:39340cd19bca
+      - image: liujordan/reliable-backend:v4.0.0.BAD
         imagePullPolicy: IfNotPresent
         name: reliable-web-backend
         ports:
@@ -37,27 +37,40 @@ spec:
         configMap:
           name: repliable-backend-configuration
 
----
-apiVersion: networking.k8s.io/v1beta1
-kind: Ingress
-metadata:
-  name: reliable-web-backend
-  annotations:
-    cert-manager.io/issuer: "letsencrypt-prod"
-    kubernetes.io/ingress.class: "nginx"
-spec:
-  rules:
-    - host: backend.deployingreliable.software
-      http:
-        paths:
-          - path: /
-            backend:
-              serviceName: reliable-web-backend
-              servicePort: 3000
-  tls:
-    - hosts:
-        - backend.deployingreliable.software
-      secretName: backend.deployingreliable.software
+# ---
+# apiVersion: networking.k8s.io/v1beta1
+# kind: Ingress
+# metadata:
+#   name: reliable-web-backend
+#   annotations:
+#     cert-manager.io/issuer: "letsencrypt-prod"
+#     kubernetes.io/ingress.class: "nginx"
+# spec:
+#   rules:
+#     - host: backend.deployingreliable.software
+#       http:
+#         paths:
+#           - path: /
+#             backend:
+#               serviceName: reliable-web-backend
+#               servicePort: 3000
+#   tls:
+#     - hosts:
+#         - backend.deployingreliable.software
+#       secretName: backend.deployingreliable.software
+
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: reliable-web-backend
+#   namespace: default
+# spec:
+#   ports:
+#   - port: 3000
+#     protocol: TCP
+#   selector:
+#     run: reliable-web-backend
 
 ---
 apiVersion: v1
@@ -66,11 +79,13 @@ metadata:
   name: reliable-web-backend
   namespace: default
 spec:
-  ports:
-  - port: 3000
-    protocol: TCP
+  type: NodePort
   selector:
     run: reliable-web-backend
+  ports:
+  - protocol: TCP
+    port: 3000
+    targetPort: 50000
 
 ---
 kind: ConfigMap
