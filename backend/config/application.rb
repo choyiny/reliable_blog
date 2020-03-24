@@ -39,7 +39,7 @@ module Backend
 
     if Rails.env.production?
       Raven.configure do |config|
-        config.dsn = 'https://da3b7d51a9b949ee8ed047304e110b35:0b3b79998f104f22846de894e884aa86@sentry.io/1884988'
+        config.dsn = ENV['SENTRY_DSN']
       end
     end
 

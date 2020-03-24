@@ -11,11 +11,11 @@
     src: ./files/docker-compose.prod.yml.j2
     dest: "{{ root_directory }}/docker-compose.yml"
   become: yes
-- name: Copy configs
-  copy:
-    src: ./files/config/
-    dest: "{{ config_directory }}"
-  become: yes
+# - name: Copy configs
+#   copy:
+#     src: ./files/config/
+#     dest: "{{ config_directory }}"
+#   become: yes
 - name: Login to Github Registries
   docker_login:
     registry: "{{ docker.registry }}"
